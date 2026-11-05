@@ -4,726 +4,931 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salar — AI Engineering Academy</title>
+<title>Salar AdSense Agency — Operating System</title>
 <style>
 :root{
-  --bg:#f6f7fb;--surface:#fff;--ink:#18213b;--muted:#7c849b;
-  --line:#e8eaf1;--purple:#6655df;--purple-soft:#efedff;
-  --teal:#13aa91;--teal-soft:#e7f8f4;--orange:#e99b43;
-  --shadow:0 8px 30px rgba(25,35,70,.055);
+  --bg:#f5f6fa;--surface:#fff;--surface2:#f8f9fc;
+  --text:#182033;--muted:#8991a4;--line:#e9ebf2;
+  --purple:#635bff;--purple2:#eeeaff;--green:#159b70;
+  --red:#e05261;--orange:#e99a36;--blue:#3786db;
+  --shadow:0 5px 24px rgba(27,35,65,.045);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-button,input{font:inherit}
+body{margin:0;background:var(--bg);color:var(--text);
+font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-.app{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
-.sidebar{background:#fff;border-right:1px solid var(--line);padding:25px 17px;
-position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
-.brand{padding:5px 9px 28px}
-.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--ink);
-color:#fff;display:grid;place-items:center;font-weight:850;font-size:17px;margin-bottom:13px}
-.brand h2{font-size:15px;margin:0;letter-spacing:-.4px}
-.brand p{font-size:10px;color:var(--muted);letter-spacing:1.5px;margin:5px 0}
-.nav-label{font-size:9px;color:#a1a6b6;font-weight:800;letter-spacing:1.5px;
-padding:15px 10px 8px}
-.nav-btn{width:100%;border:0;background:transparent;color:#69728a;text-align:left;
-padding:11px 12px;border-radius:9px;font-size:12px;font-weight:650;margin:2px 0}
-.nav-btn:hover,.nav-btn.active{background:var(--purple-soft);color:var(--purple)}
-.nav-btn span{display:inline-block;width:25px;color:inherit}
-.sidebar-bottom{margin-top:auto;border-top:1px solid var(--line);padding:15px 8px 0}
-.sidebar-bottom p{font-size:10px;color:var(--muted);line-height:1.6}
-.main{min-width:0;padding:32px clamp(18px,4vw,55px) 60px;max-width:1500px;width:100%;margin:auto}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:28px}
-.eyebrow{font-size:10px;letter-spacing:1.7px;color:var(--purple);font-weight:800}
-h1{font-size:clamp(24px,3vw,34px);letter-spacing:-1.3px;margin:7px 0}
-.subtitle{font-size:12px;color:var(--muted);line-height:1.7}
-.top-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 13px;
-border-radius:8px;font-size:11px;font-weight:700}
-.btn.primary{background:var(--purple);border-color:var(--purple);color:#fff}
-.btn:hover{filter:brightness(.97)}
+.app{display:flex;min-height:100vh}
+.sidebar{width:255px;background:#fff;border-right:1px solid var(--line);
+padding:25px 15px;position:fixed;inset:0 auto 0 0;overflow-y:auto;z-index:5}
+.brand{display:flex;gap:11px;align-items:center;padding:0 10px 27px}
+.logo{width:39px;height:39px;border-radius:12px;background:var(--purple);
+color:white;display:grid;place-items:center;font-weight:900;font-size:18px}
+.brand strong{display:block;font-size:14px;letter-spacing:.3px}
+.brand small{color:var(--muted);font-size:10px;letter-spacing:1.2px}
+.nav-label{font-size:9px;font-weight:800;color:#a1a7b5;
+letter-spacing:1.4px;padding:17px 12px 8px}
+.nav button{width:100%;border:0;background:none;text-align:left;
+padding:11px 12px;border-radius:9px;color:#70788b;font-size:12px;
+display:flex;gap:12px;align-items:center;margin:2px 0}
+.nav button:hover,.nav button.active{background:var(--purple2);color:var(--purple)}
+.nav-icon{width:19px;text-align:center;font-size:15px}
+.sidebar-bottom{border-top:1px solid var(--line);margin-top:25px;padding:18px 10px}
+.sidebar-bottom small{color:var(--muted);font-size:10px}
+.main{margin-left:255px;width:calc(100% - 255px);padding:30px 35px 60px}
+.topbar{display:flex;justify-content:space-between;align-items:center;
+gap:15px;margin-bottom:28px}
+.breadcrumb{font-size:11px;color:var(--muted)}
+.top-actions{display:flex;gap:9px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:white;color:var(--text);
+padding:10px 14px;border-radius:9px;font-size:11px;font-weight:700}
+.btn:hover{border-color:var(--purple);color:var(--purple)}
+.btn.primary{background:var(--purple);border-color:var(--purple);color:white}
+.btn.danger{background:#fff1f2;border-color:#ffdadd;color:var(--red)}
+.btn.success{background:#e9f8f1;border-color:#d1f0e1;color:var(--green)}
 .page{display:none}.page.active{display:block}
-.hero{background:linear-gradient(115deg,#1c2544,#34346c 70%,#5547b7);
-color:#fff;padding:27px;border-radius:16px;display:grid;
-grid-template-columns:1.5fr 1fr;gap:20px;align-items:center;box-shadow:var(--shadow)}
-.hero .eyebrow{color:#b9b4ff}
-.hero h2{font-size:clamp(21px,3vw,30px);letter-spacing:-1px;margin:10px 0}
-.hero p{font-size:12px;color:#d0d3e8;line-height:1.8;max-width:550px}
-.hero-stat{border-left:1px solid #ffffff35;padding-left:24px}
-.hero-stat strong{font-size:38px;letter-spacing:-2px}
-.hero-stat small{display:block;color:#c7c8e0;font-size:10px;margin-top:5px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:17px 0}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;
-padding:17px;box-shadow:var(--shadow)}
-.stat small{color:var(--muted);font-size:10px;font-weight:650}
-.stat strong{display:block;font-size:25px;letter-spacing:-1px;margin:7px 0}
-.stat em{font-style:normal;color:var(--muted);font-size:10px}
-.progress-track{height:6px;background:#eceef5;border-radius:9px;overflow:hidden;margin-top:10px}
-.progress-fill{height:100%;width:0;background:var(--purple);border-radius:9px;transition:.25s}
-.progress-fill.teal{background:var(--teal)}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:28px 0 13px}
-.section-head h2{font-size:17px;letter-spacing:-.5px;margin:0}
-.section-head p{font-size:10px;color:var(--muted);margin:5px 0 0}
-.phase-list{display:grid;gap:10px}
-.phase{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.phase-head{display:flex;align-items:center;gap:13px;padding:15px;cursor:pointer}
-.phase-number{width:35px;height:35px;flex-shrink:0;border-radius:10px;
-background:var(--purple-soft);color:var(--purple);display:grid;place-items:center;
-font-size:11px;font-weight:800}
-.phase-info{min-width:0;flex:1}
-.phase-info strong{font-size:12px;display:block}
-.phase-info small{font-size:10px;color:var(--muted);display:block;margin-top:4px}
-.phase-progress{font-size:10px;color:var(--muted);white-space:nowrap}
-.phase-content{display:none;border-top:1px solid var(--line);padding:6px 15px 15px}
-.phase.open .phase-content{display:block}
-.topic{display:grid;grid-template-columns:minmax(0,1fr) 83px 83px;gap:8px;
-align-items:center;padding:10px 4px;border-bottom:1px solid #f0f1f5}
-.topic:last-child{border:0}
-.topic-name{font-size:11px;font-weight:650}
-.topic-desc{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5}
-.check-col{display:flex;justify-content:center;align-items:center;gap:5px;
-font-size:9px;color:var(--muted)}
-.check-col input{accent-color:var(--purple);width:15px;height:15px;cursor:pointer}
-.topic-labels{display:grid;grid-template-columns:minmax(0,1fr) 83px 83px;
-gap:8px;padding:8px 4px 3px;color:#a1a6b6;font-size:9px;font-weight:800}
-.searchbar{width:100%;padding:12px 14px;border:1px solid var(--line);
-border-radius:9px;background:#fff;font-size:12px;outline:none;margin:15px 0}
-.searchbar:focus{border-color:var(--purple)}
-.panel{background:#fff;border:1px solid var(--line);border-radius:13px;
-padding:18px;margin:12px 0;box-shadow:var(--shadow)}
-.panel h3{font-size:14px;margin:0 0 7px}
-.panel p{font-size:11px;color:var(--muted);line-height:1.7}
-.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.project-card{background:#fff;border:1px solid var(--line);border-radius:12px;
-padding:17px;min-width:0}
-.project-card h3{font-size:13px;margin:0 0 5px}
-.project-card p{font-size:10px;color:var(--muted);line-height:1.6}
-.project-meta{font-size:9px;color:var(--purple);font-weight:800;letter-spacing:.7px}
-.project-card .progress-track{margin:13px 0}
-.project-card button{margin-top:10px}
-.launch-list{display:grid;gap:8px;margin-top:13px}
-.launch-item{display:flex;align-items:flex-start;gap:9px;padding:9px 0;
-border-bottom:1px solid #f0f1f5;font-size:11px;line-height:1.5}
-.launch-item input{accent-color:var(--teal);margin-top:2px}
-.launch-item span{flex:1}
-.launch-item input:checked+span{text-decoration:line-through;color:#9ba2b1}
-.tag{display:inline-block;background:var(--teal-soft);color:#138a78;
-padding:4px 7px;border-radius:5px;font-size:9px;font-weight:750}
+.heading{display:flex;justify-content:space-between;align-items:flex-start;
+gap:15px;margin-bottom:24px}
+h1{font-size:25px;letter-spacing:-.8px;margin:0 0 7px}
+.subtitle{font-size:12px;color:var(--muted);line-height:1.6}
+.grid{display:grid;gap:15px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:20px}
+.card{background:var(--surface);border:1px solid var(--line);
+border-radius:13px;padding:19px;box-shadow:var(--shadow)}
+.stat-label{font-size:10px;color:var(--muted);font-weight:650}
+.stat-value{font-size:26px;font-weight:800;letter-spacing:-1px;margin:13px 0 5px}
+.stat-note{font-size:10px;color:var(--muted)}
+.stat-icon{float:right;width:34px;height:34px;border-radius:10px;
+display:grid;place-items:center;background:var(--purple2);color:var(--purple)}
+.section-title{font-size:14px;font-weight:800;margin:0 0 14px}
+.two{grid-template-columns:1.3fr 1fr}
+.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.panel{background:white;border:1px solid var(--line);border-radius:13px;
+padding:20px;margin-bottom:17px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;
+gap:10px;margin-bottom:16px}
+.panel-head h3{font-size:13px;margin:0}
 .muted{color:var(--muted)}
-.empty{padding:30px;text-align:center;color:var(--muted);font-size:12px}
-.footer-note{margin-top:28px;font-size:10px;color:var(--muted);line-height:1.7}
-@media(max-width:850px){
-.app{grid-template-columns:1fr}.sidebar{height:auto;position:relative;padding:12px;
-border-right:0;border-bottom:1px solid var(--line)}
-.brand{padding:4px 7px 10px;display:flex;align-items:center;gap:10px}
-.brand-mark{margin:0}.brand p{display:none}
-.nav-label,.sidebar-bottom{display:none}
-.nav-group{display:flex;overflow-x:auto;gap:5px}
-.nav-btn{white-space:nowrap;width:auto;padding:9px 11px}
-.main{padding:22px 15px 45px}
-}
-@media(max-width:570px){
-.hero{grid-template-columns:1fr}.hero-stat{border-left:0;border-top:1px solid #ffffff35;padding:15px 0 0}
-.stats{grid-template-columns:repeat(2,1fr)}
-.project-grid{grid-template-columns:1fr}
-.topic{grid-template-columns:minmax(0,1fr) 65px 65px;gap:4px}
-.topic-labels{grid-template-columns:minmax(0,1fr) 65px 65px}
-.check-col{font-size:8px}
-.phase-progress{display:none}
+.small{font-size:10px}
+.badge{display:inline-flex;align-items:center;padding:5px 8px;
+border-radius:20px;font-size:9px;font-weight:800;background:#f0f1f5;color:#777f91}
+.badge.green{background:#e6f7ef;color:var(--green)}
+.badge.red{background:#fff0f1;color:var(--red)}
+.badge.orange{background:#fff5e7;color:#c17a1c}
+.badge.purple{background:var(--purple2);color:var(--purple)}
+.badge.blue{background:#eaf3ff;color:var(--blue)}
+.progress{height:6px;background:#eff0f5;border-radius:20px;overflow:hidden}
+.progress span{height:100%;display:block;background:var(--purple);border-radius:20px}
+.project-list{display:grid;gap:10px}
+.project{border:1px solid var(--line);border-radius:10px;padding:14px}
+.project-top{display:flex;justify-content:space-between;gap:10px}
+.project h4{margin:0 0 5px;font-size:12px}
+.project-meta{font-size:10px;color:var(--muted);margin-bottom:13px}
+.project-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
+.mini-btn{font-size:10px;padding:7px 9px;border:1px solid var(--line);
+border-radius:7px;background:white;color:#626b7e}
+.mini-btn:hover{border-color:var(--purple);color:var(--purple)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{text-align:left;color:var(--muted);font-size:9px;letter-spacing:.5px;
+font-weight:800;padding:12px 10px;border-bottom:1px solid var(--line)}
+td{padding:13px 10px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);
+border-radius:8px;background:white;color:var(--text);outline:none;font-size:11px}
+input:focus,select:focus,textarea:focus{border-color:var(--purple)}
+textarea{resize:vertical;min-height:75px}
+label{font-size:10px;font-weight:700;color:#646d80;display:block;margin-bottom:7px}
+.field{margin-bottom:13px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid .full{grid-column:1/-1}
+.empty{text-align:center;padding:35px 15px;color:var(--muted);font-size:11px}
+.empty strong{display:block;color:var(--text);margin-bottom:6px;font-size:13px}
+.check-group{border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.check-head{padding:13px 15px;background:var(--surface2);
+display:flex;justify-content:space-between;align-items:center;gap:10px}
+.check-head strong{font-size:11px}
+.check-items{padding:5px 15px}
+.check-item{display:flex;gap:10px;align-items:flex-start;
+padding:10px 0;border-bottom:1px solid #f0f1f5}
+.check-item:last-child{border:0}
+.check-item input{width:15px;height:15px;margin:1px 0 0;accent-color:var(--purple);flex-shrink:0}
+.check-item span{font-size:11px;line-height:1.5;flex:1}
+.check-item small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}
+.toolbar input{max-width:270px}
+.metric{font-size:23px;font-weight:800;margin-top:8px}
+.modal-bg{position:fixed;inset:0;background:#11182770;z-index:20;
+display:none;align-items:center;justify-content:center;padding:15px}
+.modal-bg.show{display:flex}
+.modal{background:white;border-radius:15px;padding:24px;width:min(520px,100%);
+max-height:90vh;overflow-y:auto;box-shadow:0 20px 70px #0002}
+.modal h2{font-size:18px;margin:0 0 18px}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px}
+.notice{padding:13px;border-radius:9px;background:#f0efff;
+font-size:10px;color:#5d55c9;line-height:1.6;margin-bottom:15px}
+.warning{background:#fff3e9;color:#a96516}
+.danger-box{background:#fff0f1;border:1px solid #ffdcdf;
+border-radius:10px;padding:13px;font-size:10px;color:#b83f4c;line-height:1.6}
+.chart{height:170px;display:flex;align-items:flex-end;gap:9px;
+padding:12px 5px 0;border-bottom:1px solid var(--line)}
+.bar{flex:1;background:#c8c3ff;border-radius:5px 5px 0 0;position:relative;min-width:8px}
+.bar:hover{background:var(--purple)}
+.bar-label{position:absolute;bottom:-19px;left:50%;transform:translateX(-50%);
+font-size:8px;color:var(--muted)}
+.bar-value{position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+font-size:8px;color:var(--muted);white-space:nowrap}
+footer{text-align:center;color:#a4aaba;font-size:9px;margin-top:30px}
+.mobile-menu{display:none}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
+@media(max-width:700px){
+.sidebar{width:245px;transform:translateX(-100%);transition:.25s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;width:100%;padding:18px 14px 45px}
+.mobile-menu{display:inline-block}
+.heading{flex-direction:column}
+.three,.four{grid-template-columns:1fr 1fr}
+.form-grid{grid-template-columns:1fr}
+.form-grid .full{grid-column:auto}
+.topbar{align-items:flex-start}
 }
 </style>
 </head>
 <body>
 <div class="app">
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar">
   <div class="brand">
-    <div class="brand-mark">S</div>
-    <div><h2>SALAR ENGINEERING</h2><p>AI-POWERED LEARNING PROGRAM</p></div>
+    <div class="logo">S</div>
+    <div><strong>SALAR ADSENSE</strong><small>AGENCY OPERATING SYSTEM</small></div>
   </div>
-  <div class="nav-label">ACADEMY</div>
-  <div class="nav-group">
-    <button class="nav-btn active" data-page="overview"><span>▦</span>Overview</button>
-    <button class="nav-btn" data-page="curriculum"><span>▤</span>Full curriculum</button>
-    <button class="nav-btn" data-page="projects"><span>◫</span>Real projects</button>
-    <button class="nav-btn" data-page="launch"><span>↗</span>Launch tracker</button>
-  </div>
-  <div class="nav-label">PROGRAM</div>
-  <div class="nav-group">
-    <button class="nav-btn" data-page="rules"><span>◎</span>Program rules</button>
-  </div>
+  <nav class="nav">
+    <div class="nav-label">WORKSPACE</div>
+    <button class="active" data-page="overview"><span class="nav-icon">▦</span>Overview</button>
+    <button data-page="research"><span class="nav-icon">⌕</span>Niche Research</button>
+    <button data-page="competitors"><span class="nav-icon">◎</span>Competitor Intelligence</button>
+    <button data-page="websites"><span class="nav-icon">▣</span>My Websites</button>
+    <button data-page="lifecycle"><span class="nav-icon">◉</span>Website Lifecycle</button>
+    <div class="nav-label">SEO & CONTENT</div>
+    <button data-page="seo"><span class="nav-icon">✓</span>Master SEO Checklist</button>
+    <button data-page="products"><span class="nav-icon">◇</span>Product / Page SEO</button>
+    <button data-page="content"><span class="nav-icon">▤</span>Content Studio</button>
+    <button data-page="launch"><span class="nav-icon">↗</span>Launch & Indexing</button>
+    <div class="nav-label">MONETIZATION</div>
+    <button data-page="adsense"><span class="nav-icon">◈</span>AdSense Approval</button>
+    <button data-page="traffic"><span class="nav-icon">⌁</span>Traffic Growth</button>
+    <button data-page="revenue"><span class="nav-icon">＄</span>Revenue Analytics</button>
+    <div class="nav-label">MANAGEMENT</div>
+    <button data-page="failed"><span class="nav-icon">⊗</span>Failed Projects</button>
+    <button data-page="backup"><span class="nav-icon">⚙</span>Settings & Backup</button>
+  </nav>
   <div class="sidebar-bottom">
-    <span class="tag">PERSONAL ACADEMY</span>
-    <p>Build with AI. Understand the engineering. Ship real products.</p>
+    <small>LOCAL WORKSPACE · V1.0</small>
+    <p style="font-size:10px;color:#737d91;line-height:1.6">Your research and progress are stored in this browser.</p>
   </div>
 </aside>
 
 <main class="main">
-  <div class="topbar">
-    <div>
-      <div class="eyebrow">YOUR ENGINEERING JOURNEY</div>
-      <h1 id="pageTitle">Welcome to your academy.</h1>
-      <div class="subtitle" id="pageSubtitle">A structured path from AI-assisted building to production engineering.</div>
-    </div>
-    <div class="top-actions">
-      <button class="btn" id="exportBtn">Export backup</button>
-      <button class="btn" id="importBtn">Import backup</button>
-      <input type="file" id="importFile" accept=".json" hidden>
+<header class="topbar">
+  <div style="display:flex;gap:10px;align-items:center">
+    <button class="btn mobile-menu" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+    <div class="breadcrumb">SALAR ADSENSE AGENCY / <span id="crumb">OVERVIEW</span></div>
+  </div>
+  <div class="top-actions">
+    <button class="btn" onclick="exportData()">↓ Backup</button>
+    <button class="btn primary" onclick="openProjectModal()">+ New Website</button>
+  </div>
+</header>
+
+<!-- OVERVIEW -->
+<section class="page active" id="page-overview">
+  <div class="heading"><div><h1>Agency Overview</h1>
+  <div class="subtitle">Your complete AdSense publishing business at a glance.</div></div>
+  <span class="badge purple">OPERATING SYSTEM</span></div>
+  <div class="grid stats">
+    <div class="card"><span class="stat-icon">▣</span><div class="stat-label">TOTAL WEBSITES</div><div class="stat-value" id="stat-sites">0</div><div class="stat-note">Active projects</div></div>
+    <div class="card"><span class="stat-icon">✓</span><div class="stat-label">COMPLETED PROJECTS</div><div class="stat-value" id="stat-completed">0</div><div class="stat-note">Lifecycle completed</div></div>
+    <div class="card"><span class="stat-icon">⌁</span><div class="stat-label">MONTHLY PAGE VIEWS</div><div class="stat-value" id="stat-views">0</div><div class="stat-note">Manually recorded</div></div>
+    <div class="card"><span class="stat-icon">$</span><div class="stat-label">MONTHLY REVENUE</div><div class="stat-value" id="stat-revenue">$0</div><div class="stat-note">Recorded actual revenue</div></div>
+  </div>
+  <div class="grid two">
+    <div class="panel"><div class="panel-head"><h3>Website Portfolio</h3><button class="mini-btn" onclick="showPage('websites')">View all →</button></div><div id="overview-projects" class="project-list"></div></div>
+    <div class="panel"><div class="panel-head"><h3>Agency Progress</h3></div>
+      <div class="stat-label">MASTER SEO CHECKLIST</div><div class="metric" id="seo-progress-number">0%</div>
+      <div class="progress" style="margin:12px 0 20px"><span id="seo-progress-bar" style="width:0%"></span></div>
+      <div class="stat-label">FAILED PROJECTS</div><div class="metric" id="failed-number">0</div>
+      <div class="stat-note" style="margin-top:8px">Archived failures remain available for learning.</div>
     </div>
   </div>
+  <div class="panel"><div class="panel-head"><h3>Recent Activity</h3><span class="badge">LOCAL RECORDS</span></div><div id="activity-list"></div></div>
+</section>
 
-  <section class="page active" id="overview">
-    <div class="hero">
-      <div>
-        <div class="eyebrow">SVFAEP · 2026–2028</div>
-        <h2>Salar Vibe Coding<br>Full-Stack AI Engineering Program</h2>
-        <p>Learn to design, build, test, secure and launch real software products using AI coding agents, modern engineering tools and production-grade workflows.</p>
-      </div>
-      <div class="hero-stat">
-        <strong id="heroPercent">0%</strong>
-        <small>OVERALL LEARNING PROGRESS</small>
-        <div class="progress-track"><div class="progress-fill" id="heroBar"></div></div>
-      </div>
-    </div>
+<!-- RESEARCH -->
+<section class="page" id="page-research">
+  <div class="heading"><div><h1>Niche Research</h1><div class="subtitle">Evaluate opportunities before investing time and resources.</div></div>
+  <button class="btn primary" onclick="openResearchModal()">+ Add Research</button></div>
+  <div class="notice">Research scores are your own assessments, not live market data. Validate search volume, competition, CPC and traffic estimates with reliable research sources before committing.</div>
+  <div class="panel"><div class="panel-head"><h3>Research Pipeline</h3></div><div id="research-list"></div></div>
+</section>
 
-    <div class="stats">
-      <div class="stat"><small>TOPICS STUDIED</small><strong id="studiedCount">0</strong><em>Marked as studied</em></div>
-      <div class="stat"><small>TOPICS LEARNED</small><strong id="learnedCount">0</strong><em>Marked as understood</em></div>
-      <div class="stat"><small>CURRICULUM</small><strong id="phaseCount">20</strong><em>Learning phases</em></div>
-      <div class="stat"><small>PROJECTS</small><strong id="projectCount">10</strong><em>Products to build and launch</em></div>
-    </div>
+<!-- COMPETITORS -->
+<section class="page" id="page-competitors">
+  <div class="heading"><div><h1>Competitor Intelligence</h1><div class="subtitle">Reverse-engineer successful site structures and discover content opportunities.</div></div>
+  <button class="btn primary" onclick="openCompetitorModal()">+ Add Competitor</button></div>
+  <div class="notice">Analyze publicly visible architecture, page types, content gaps and SEO strategy. Build original content, branding, code and assets rather than copying protected material.</div>
+  <div class="panel"><div class="panel-head"><h3>Competitor Database</h3></div><div id="competitor-list"></div></div>
+</section>
 
-    <div class="section-head">
-      <div><h2>Learning progress</h2><p>Studied and learned are tracked separately.</p></div>
-      <span class="tag" id="progressLabel">STARTING</span>
-    </div>
-    <div class="panel">
-      <div style="display:flex;justify-content:space-between;font-size:11px">
-        <strong>Studied</strong><span id="studiedPercent">0%</span>
-      </div>
-      <div class="progress-track"><div class="progress-fill" id="studiedBar"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:17px">
-        <strong>Learned</strong><span id="learnedPercent">0%</span>
-      </div>
-      <div class="progress-track"><div class="progress-fill teal" id="learnedBar"></div></div>
-    </div>
+<!-- WEBSITES -->
+<section class="page" id="page-websites">
+  <div class="heading"><div><h1>My Websites</h1><div class="subtitle">Manage every website independently.</div></div>
+  <button class="btn primary" onclick="openProjectModal()">+ New Website</button></div>
+  <div class="toolbar"><input id="website-search" placeholder="Search websites..." oninput="renderWebsites()">
+  <select id="website-filter" onchange="renderWebsites()" style="max-width:160px"><option value="all">All statuses</option><option>Research</option><option>Planning</option><option>Development</option><option>SEO</option><option>Content</option><option>Launch</option><option>AdSense</option><option>Growth</option><option>Completed</option></select></div>
+  <div id="website-list" class="project-list"></div>
+</section>
 
-    <div class="section-head"><div><h2>Continue your journey</h2><p>Open a phase and mark topics as you progress.</p></div></div>
-    <div class="panel" id="nextPhase"></div>
+<!-- LIFECYCLE -->
+<section class="page" id="page-lifecycle">
+  <div class="heading"><div><h1>Website Lifecycle</h1><div class="subtitle">Track a website from research to monetization.</div></div></div>
+  <div class="panel"><div class="panel-head"><h3>Lifecycle stages</h3></div><div id="lifecycle-list"></div></div>
+</section>
 
-    <div class="section-head"><div><h2>Product launch progress</h2><p>Learning projects should become real, usable products.</p></div></div>
-    <div class="panel" id="launchSummary"></div>
-  </section>
+<!-- SEO -->
+<section class="page" id="page-seo">
+  <div class="heading"><div><h1>Master SEO Checklist</h1><div class="subtitle">Detailed technical, on-page, off-page and advanced SEO implementation.</div></div></div>
+  <div class="toolbar"><select id="seo-site" onchange="renderSEO()" style="max-width:240px"></select>
+  <select id="seo-filter" onchange="renderSEO()" style="max-width:170px"><option value="all">All tasks</option><option value="pending">Pending</option><option value="done">Verified</option><option value="failed">Failed</option><option value="na">Not applicable</option></select></div>
+  <div class="panel"><div class="panel-head"><h3>SEO completion</h3><strong id="seo-total">0%</strong></div><div class="progress"><span id="seo-bar" style="width:0%"></span></div></div>
+  <div id="seo-groups"></div>
+</section>
 
-  <section class="page" id="curriculum">
-    <div class="section-head">
-      <div><h2>Complete curriculum</h2><p>20 phases · AI-native software and product engineering</p></div>
-      <span class="tag" id="topicTotal">0 topics</span>
-    </div>
-    <input class="searchbar" id="search" placeholder="Search topics, tools, concepts or phases...">
-    <div class="topic-labels"><div>TOPIC / SKILL</div><div style="text-align:center">STUDIED</div><div style="text-align:center">LEARNED</div></div>
-    <div class="phase-list" id="phaseList"></div>
-  </section>
+<!-- PRODUCTS -->
+<section class="page" id="page-products">
+  <div class="heading"><div><h1>Product / Page SEO</h1><div class="subtitle">Each individual tool, product, article or landing page gets its own SEO record.</div></div>
+  <button class="btn primary" onclick="openProductModal()">+ Add Page</button></div>
+  <div class="toolbar"><select id="product-site" onchange="renderProducts()" style="max-width:240px"></select></div>
+  <div id="product-list"></div>
+</section>
 
-  <section class="page" id="projects">
-    <div class="section-head"><div><h2>Real-world product lab</h2><p>Build these during the program. Validate, deploy and launch them.</p></div></div>
-    <div class="panel">
-      <h3>One important principle</h3>
-      <p>A project is not complete when the AI generates code. It becomes a real project when it has been tested, deployed, documented, secured and made usable by real people. Some projects may become commercial products; others may remain open-source or portfolio products.</p>
-    </div>
-    <div class="project-grid" id="projectGrid"></div>
-  </section>
+<!-- CONTENT -->
+<section class="page" id="page-content">
+  <div class="heading"><div><h1>Content Studio</h1><div class="subtitle">Plan original content and topical authority.</div></div>
+  <button class="btn primary" onclick="openContentModal()">+ Add Content</button></div>
+  <div class="panel"><div class="panel-head"><h3>Content Pipeline</h3></div><div id="content-list"></div></div>
+</section>
 
-  <section class="page" id="launch">
-    <div class="section-head"><div><h2>Production launch tracker</h2><p>Track the steps required to release each product properly.</p></div></div>
-    <div class="panel">
-      <h3>Launch standard</h3>
-      <p>Each product gets its own launch checklist. Tick a milestone only when you have actually completed and verified it.</p>
-    </div>
-    <div id="launchGrid"></div>
-  </section>
+<!-- LAUNCH -->
+<section class="page" id="page-launch">
+  <div class="heading"><div><h1>Launch & Indexing</h1><div class="subtitle">Deployment, crawling, indexing and technical readiness.</div></div></div>
+  <div class="toolbar"><select id="launch-site" onchange="renderLaunch()" style="max-width:240px"></select></div>
+  <div id="launch-groups"></div>
+</section>
 
-  <section class="page" id="rules">
-    <div class="section-head"><div><h2>How this academy works</h2><p>Rules for becoming an engineer, not just an AI tool operator.</p></div></div>
-    <div class="panel">
-      <h3>01 · AI-first, engineering-aware</h3>
-      <p>You do not need to become a traditional syntax-first programmer. You do need to understand what the AI is building, inspect generated code, identify mistakes and make informed technical decisions.</p>
-    </div>
-    <div class="panel">
-      <h3>02 · Two separate checkmarks</h3>
-      <p><b>Studied:</b> You completed the learning material and explored the topic.<br><b>Learned:</b> You can explain the concept, apply it in a project and answer practical questions without blindly trusting AI.</p>
-    </div>
-    <div class="panel">
-      <h3>03 · Build while learning</h3>
-      <p>Every major phase should contribute to a working product, prototype, game, integration or engineering exercise. Do not wait until the end to start building.</p>
-    </div>
-    <div class="panel">
-      <h3>04 · Launch, don't just demonstrate</h3>
-      <p>For each suitable product: test it, deploy it, configure its domain, prepare documentation, publish a release and collect feedback. Track real users and actual performance where possible.</p>
-    </div>
-    <div class="panel">
-      <h3>05 · Review AI-generated work</h3>
-      <p>Review architecture, dependencies, security, performance, tests and maintainability. A successful build is not proof that the software is correct.</p>
-    </div>
-    <div class="panel">
-      <h3>06 · Realistic senior-level target</h3>
-      <p>This curriculum builds the skills and evidence for strong engineering roles. A senior title also requires real production ownership, collaboration, technical judgement, incident handling and experience over time. It cannot be guaranteed by completing lessons alone.</p>
-    </div>
-    <div class="panel">
-      <h3>07 · Suggested study schedule</h3>
-      <p>Target: approximately 80 weeks at 20–25 hours per week. A useful weekly split: 25% concepts and research, 45% AI-assisted building, 20% testing and debugging, 10% documentation and review. Adjust based on actual understanding.</p>
-    </div>
-    <div class="panel">
-      <h3>08 · Backup your progress</h3>
-      <p>This is a frontend-only tool. Use Export backup regularly to download your progress as JSON. Import that file on another browser or device to restore it.</p>
-    </div>
-  </section>
+<!-- ADSENSE -->
+<section class="page" id="page-adsense">
+  <div class="heading"><div><h1>AdSense Approval</h1><div class="subtitle">Prepare, audit and track each website's monetization application.</div></div></div>
+  <div class="toolbar"><select id="adsense-site" onchange="renderAdSense()" style="max-width:240px"></select></div>
+  <div class="notice warning">A completed checklist does not guarantee approval. Google independently reviews each website against its current publisher policies and eligibility requirements.</div>
+  <div id="adsense-groups"></div>
+  <div class="panel"><h3 class="section-title">Application Status</h3>
+    <div class="form-grid"><div class="field"><label>Application status</label><select id="ads-status" onchange="saveAdStatus()"><option>Not Applied</option><option>Preparing</option><option>Applied</option><option>Under Review</option><option>Approved</option><option>Rejected</option></select></div>
+    <div class="field"><label>Application / Review date</label><input type="date" id="ads-date" onchange="saveAdStatus()"></div>
+    <div class="field full"><label>Review notes / Rejection reason</label><textarea id="ads-notes" onchange="saveAdStatus()" placeholder="Record feedback and next steps..."></textarea></div></div>
+  </div>
+</section>
 
-  <div class="footer-note">SALAR ENGINEERING ACADEMY · PERSONAL LEARNING TRACKER<br>Progress is saved locally in this browser. No account or backend is required.</div>
+<!-- TRAFFIC -->
+<section class="page" id="page-traffic">
+  <div class="heading"><div><h1>Traffic Growth</h1><div class="subtitle">Track search performance and growth experiments.</div></div>
+  <button class="btn primary" onclick="openTrafficModal()">+ Record Metrics</button></div>
+  <div class="toolbar"><select id="traffic-site" onchange="renderTraffic()" style="max-width:240px"></select></div>
+  <div id="traffic-metrics" class="grid three"></div>
+  <div class="panel"><div class="panel-head"><h3>Traffic history</h3></div><div id="traffic-chart"></div></div>
+  <div class="panel"><div class="panel-head"><h3>SEO Experiments</h3><button class="mini-btn" onclick="openExperimentModal()">+ Experiment</button></div><div id="experiments-list"></div></div>
+</section>
+
+<!-- REVENUE -->
+<section class="page" id="page-revenue">
+  <div class="heading"><div><h1>Revenue Analytics</h1><div class="subtitle">Estimate potential earnings and record actual business performance.</div></div></div>
+  <div class="panel"><h3 class="section-title">Revenue Simulator</h3>
+    <div class="form-grid">
+      <div class="field"><label>Monthly page views</label><input id="calc-views" type="number" value="100000" min="0" oninput="calculate()"></div>
+      <div class="field"><label>Estimated Page RPM (USD)</label><input id="calc-rpm" type="number" value="3" min="0" step=".1" oninput="calculate()"></div>
+      <div class="field"><label>USD to PKR exchange rate</label><input id="calc-fx" type="number" value="280" min="0" oninput="calculate()"></div>
+      <div class="field"><label>Monthly expenses (PKR)</label><input id="calc-cost" type="number" value="10000" min="0" oninput="calculate()"></div>
+    </div>
+    <div class="grid three" style="margin-top:15px">
+      <div class="card"><div class="stat-label">ESTIMATED REVENUE</div><div class="metric" id="calc-usd">$300</div></div>
+      <div class="card"><div class="stat-label">REVENUE IN PKR</div><div class="metric" id="calc-pkr">84,000</div></div>
+      <div class="card"><div class="stat-label">ESTIMATED NET PROFIT</div><div class="metric" id="calc-profit">74,000</div></div>
+    </div>
+    <p class="small muted">Illustrative only. RPM varies with country, niche, season, ad demand and traffic quality. Estimates are not guaranteed earnings.</p>
+  </div>
+  <div class="panel"><div class="panel-head"><h3>Actual Revenue Records</h3><button class="btn primary" onclick="openRevenueModal()">+ Add Record</button></div><div id="revenue-list"></div></div>
+  <div class="panel"><h3 class="section-title">Portfolio Financial Summary</h3><div id="financial-summary"></div></div>
+</section>
+
+<!-- FAILED -->
+<section class="page" id="page-failed">
+  <div class="heading"><div><h1>Failed Projects</h1><div class="subtitle">Preserve failed experiments, reasons, financial losses and lessons learned.</div></div></div>
+  <div class="danger-box" style="margin-bottom:16px">Failed projects are retained as historical records. Marking a project failed will not delete its research, SEO checklist, content or financial history.</div>
+  <div id="failed-list"></div>
+</section>
+
+<!-- BACKUP -->
+<section class="page" id="page-backup">
+  <div class="heading"><div><h1>Settings & Backup</h1><div class="subtitle">Manage local data and protect your agency records.</div></div></div>
+  <div class="grid two">
+    <div class="panel"><h3 class="section-title">Export backup</h3><p class="subtitle">Download all website records, checklists, research, traffic and revenue as JSON.</p><button class="btn primary" onclick="exportData()">↓ Export JSON Backup</button></div>
+    <div class="panel"><h3 class="section-title">Import backup</h3><p class="subtitle">Restore a previously exported JSON file. This replaces current local workspace data.</p><input type="file" id="import-file" accept=".json,application/json" onchange="importData(event)"></div>
+    <div class="panel"><h3 class="section-title">Storage information</h3><div id="storage-info" class="subtitle"></div><button class="btn" onclick="updateStorage()">Refresh</button></div>
+    <div class="panel"><h3 class="section-title">Data reset</h3><p class="subtitle">Permanently clear all locally stored workspace data.</p><button class="btn danger" onclick="resetData()">Reset workspace</button></div>
+  </div>
+  <div class="panel"><h3 class="section-title">Important limitations</h3><ul class="subtitle" style="line-height:2.1">
+    <li>Data is stored in this browser using LocalStorage.</li>
+    <li>There is no cloud synchronization or user authentication.</li>
+    <li>Browser data clearing can remove records. Export backups regularly.</li>
+    <li>SEO metrics, keyword research and AdSense statuses are manually entered.</li>
+    <li>This dashboard does not automatically scrape competitor websites or connect to Google.</li>
+  </ul></div>
+</section>
+
+<footer>SALAR ADSENSE AGENCY · RESEARCH. BUILD. RANK. MONETIZE. SCALE.</footer>
 </main>
 </div>
 
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+<div class="modal"><h2 id="modal-title">New Record</h2><div id="modal-body"></div>
+<div class="modal-actions"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" id="modal-save">Save Record</button></div>
+</div></div>
+
 <script>
-const phases = [
-{title:"Engineering Mindset & Product Thinking",time:"Weeks 1–3",topics:[
-["Software development lifecycle","Understand requirements, design, build, test, release and maintenance."],
-["Product thinking","Problems, users, market validation, MVPs and product-market fit."],
-["PRDs and specifications","Write product requirement documents, acceptance criteria and scope."],
-["User flows and wireframes","Map journeys, edge cases, onboarding and navigation."],
-["Agile and project management","Sprints, backlog, milestones, estimation and prioritisation."],
-["Reverse engineering","Study existing products, inspect UX, features and technical behaviour."],
-["Technical decision-making","Trade-offs, constraints, feasibility and documenting decisions."]
-]},
-{title:"Prompt Engineering & Context Engineering",time:"Weeks 4–6",topics:[
-["Prompt engineering fundamentals","Role, context, objective, constraints, examples and output format."],
-["Complex task decomposition","Break large software tasks into smaller verifiable tasks."],
-["Context management","Provide repository structure, relevant files and project history."],
-["Structured outputs","JSON schemas, validation, strict formats and tool outputs."],
-["System instructions","AGENTS.md, CLAUDE.md, GEMINI.md and Copilot instructions."],
-["Agent workflows","Plan, implement, inspect, test, revise and verify."],
-["Prompt evaluation","Compare outputs, detect hallucinations and build reusable prompt libraries."]
-]},
-{title:"AI Coding Platforms & Development Workflow",time:"Weeks 7–9",topics:[
-["Claude Code","Terminal-based AI coding, planning, tools and repository workflows."],
-["Cursor","AI editor, codebase context, agent mode and debugging."],
-["GitHub Copilot","Agent mode, code review and repository integration."],
-["Windsurf and Gemini CLI","Compare agent workflows and project performance."],
-["OpenAI Codex","Delegate tasks, inspect changes and run verification."],
-["Lovable, Bolt and Replit Agent","Rapid prototyping and full-stack generation."],
-["v0, Aider, Cline and Roo Code","Compare specialist workflows and alternatives."],
-["MCP and tool integrations","Connect agents to documentation, databases and external tools."],
-["AI tool evaluation","Measure output quality, speed, cost, reliability and maintainability."]
-]},
-{title:"Code Literacy — Understand Without Syntax-First Training",time:"Weeks 10–13",topics:[
-["HTML and CSS concepts","DOM, layout, responsive behaviour, selectors and cascade."],
-["JavaScript and TypeScript","Variables, functions, objects, types and control flow."],
-["Python fundamentals","Data types, functions, packages and application structure."],
-["React and component concepts","Components, props, state, hooks and rendering."],
-["Node.js and runtime concepts","Server runtime, packages, modules and processes."],
-["SQL and data concepts","Tables, relationships, queries and transactions."],
-["HTTP, JSON and APIs","Requests, responses, status codes, headers and payloads."],
-["Async programming","Promises, async/await, concurrency and error handling."],
-["Reading generated code","Trace execution, inspect dependencies and understand architecture."],
-["Debugging literacy","Stack traces, logs, breakpoints and root-cause analysis."]
-]},
-{title:"UI/UX, Frontend & Design Systems",time:"Weeks 14–18",topics:[
-["Figma and interface design","Layouts, components, auto-layout and design handoff."],
-["Design systems","Tokens, typography, spacing, colours and reusable components."],
-["Responsive design","Mobile-first layouts, breakpoints and accessibility."],
-["React","Component architecture, state, props and hooks."],
-["TypeScript with React","Types, interfaces and safer component contracts."],
-["Next.js","Routing, rendering, server components and application structure."],
-["Tailwind CSS","Utility styling and consistent design implementation."],
-["shadcn/ui and Radix","Accessible components and controlled customisation."],
-["Motion and interactions","Framer Motion, transitions, micro-interactions and reduced motion."],
-["Frontend state and forms","TanStack Query, React Hook Form and Zod."],
-["Frontend performance","Core Web Vitals, image optimisation and rendering efficiency."],
-["Accessibility","Keyboard navigation, semantics, contrast and screen readers."]
-]},
-{title:"Backend Engineering & API Architecture",time:"Weeks 19–23",topics:[
-["Backend architecture","Requests, business logic, services and application layers."],
-["Node.js backend","Express or NestJS and server-side application structure."],
-["Python backend","FastAPI fundamentals and AI service integration."],
-["REST APIs","Resources, methods, status codes, pagination and versioning."],
-["GraphQL fundamentals","Schemas, queries, mutations and trade-offs."],
-["Authentication","Sessions, JWT, OAuth and secure login flows."],
-["Authorisation","Roles, permissions, policies and tenant boundaries."],
-["WebSockets and real-time systems","Live updates, notifications and collaboration."],
-["Webhooks","Event delivery, signatures, retries and idempotency."],
-["Queues and background jobs","Async processing, scheduling and worker patterns."],
-["Backend architecture patterns","Modular monoliths, service boundaries and microservices."]
-]},
-{title:"Databases & Data Architecture",time:"Weeks 24–27",topics:[
-["PostgreSQL","Schemas, tables, constraints and relational modelling."],
-["SQL","SELECT, JOIN, INSERT, UPDATE, DELETE and aggregations."],
-["Database design","Normalisation, relationships and data integrity."],
-["Indexes and query performance","Execution plans and optimisation."],
-["Transactions","ACID, isolation and concurrency."],
-["Supabase","Auth, PostgreSQL, storage and Row Level Security."],
-["Firebase","Firestore, authentication and real-time capabilities."],
-["Redis","Caching, sessions and queues."],
-["MongoDB","Document databases and appropriate use cases."],
-["Object storage","Uploads, permissions, file handling and lifecycle."],
-["Backups and recovery","Restore testing, retention and data-loss prevention."]
-]},
-{title:"Full-Stack SaaS Product Engineering",time:"Weeks 28–31",topics:[
-["Full-stack architecture","Connect frontend, backend, database and external services."],
-["Multi-tenant SaaS","Tenant isolation, workspaces and organisation membership."],
-["Admin dashboards","User management, permissions and system controls."],
-["Subscription systems","Plans, billing states, renewals and cancellations."],
-["Payment integrations","Payment flows, webhooks and reconciliation."],
-["Usage metering","Quotas, limits, credits and usage tracking."],
-["Email and notifications","Transactional email and notification preferences."],
-["SaaS onboarding","Signup, setup, activation and account recovery."],
-["Production readiness","Error states, audit logs and operational controls."]
-]},
-{title:"Android & iOS App Development",time:"Weeks 32–36",topics:[
-["React Native","Cross-platform mobile app fundamentals."],
-["Expo and Expo Router","Navigation, project setup and development workflow."],
-["Native capabilities","Camera, files, biometrics and device permissions."],
-["Offline-first apps","Local storage, sync and conflict handling."],
-["Push notifications","Device tokens, permissions and notification flows."],
-["Native modules","Understand when platform-specific code is required."],
-["EAS Build and Submit","Build and release management."],
-["Android Studio and SDK","Emulators, APK/AAB and debugging."],
-["iOS Xcode workflow","Signing, provisioning and TestFlight."],
-["Play Console and App Store Connect","Store listings, privacy disclosures and submission."]
-]},
-{title:"AI APIs & Generative AI Engineering",time:"Weeks 37–41",topics:[
-["LLM fundamentals","Tokens, context windows, temperature and model selection."],
-["OpenAI API","Responses, structured output and tool calling."],
-["Anthropic API","Messages, tools and model workflows."],
-["Gemini API","Multimodal inputs and structured generation."],
-["Open-source models","Llama, Mistral and local inference concepts."],
-["Streaming","Incremental responses and user experience."],
-["Embeddings","Vector representations and semantic similarity."],
-["Vision and document input","Images, OCR, PDFs and extraction."],
-["Audio AI","Speech-to-text, text-to-speech and voice interfaces."],
-["API reliability","Secrets, retries, rate limits and fallback models."],
-["AI cost management","Token usage, caching, routing and budgets."]
-]},
-{title:"RAG, Search & Knowledge Systems",time:"Weeks 42–45",topics:[
-["RAG architecture","Retrieval augmented generation end-to-end."],
-["Document ingestion","Parsing, OCR, extraction and metadata."],
-["Chunking strategies","Chunk size, overlap and semantic chunking."],
-["Vector databases","pgvector, Pinecone, Qdrant and Weaviate."],
-["Hybrid search","Keyword and semantic retrieval."],
-["Reranking","Improve relevance of retrieved content."],
-["Citations and grounding","Source references and answer verification."],
-["Tenant-isolated retrieval","Secure retrieval across separate customers."],
-["RAG evaluation","Retrieval quality, faithfulness and answer relevance."]
-]},
-{title:"AI Agents & Autonomous Systems",time:"Weeks 46–50",topics:[
-["Agent fundamentals","Tools, planning, state and controlled autonomy."],
-["OpenAI Agents SDK","Agent orchestration and handoffs."],
-["LangGraph","Stateful workflows and graph-based execution."],
-["Google ADK","Agent development and orchestration."],
-["Microsoft Agent Framework","Enterprise agent concepts."],
-["Tool calling","Schemas, validation and permission checks."],
-["MCP","Model Context Protocol and connected tools."],
-["Memory and state","Short-term state and persistent memory design."],
-["Human approval","Approval gates for consequential actions."],
-["Agent evaluation","Traces, benchmarks and failure analysis."],
-["Agent security","Prompt injection, sandboxing and least privilege."]
-]},
-{title:"Automation & Business Integrations",time:"Weeks 51–53",topics:[
-["n8n","Visual automation and self-hosted workflows."],
-["Make and Zapier","No-code integration patterns."],
-["Pipedream and Power Automate","Developer and enterprise automation."],
-["Webhooks and events","Trigger-based workflow architecture."],
-["CRM integrations","Contacts, deals and pipeline synchronisation."],
-["Google and Microsoft integrations","Drive, Sheets, Gmail, Outlook and Teams."],
-["Reliable automations","Retries, idempotency, logs and error recovery."],
-["Business workflow design","Map manual work into safe automated processes."]
-]},
-{title:"AI Game Development & Interactive Experiences",time:"Weeks 54–59",topics:[
-["Game design fundamentals","Core loops, mechanics, player goals and balancing."],
-["AI-assisted game planning","Game design documents, levels and feature specifications."],
-["Browser games with Phaser","2D games, physics, input and scenes."],
-["Three.js and WebGL","Interactive 3D environments in the browser."],
-["Godot","2D/3D game development and scene architecture."],
-["Unity fundamentals","Scenes, assets, physics and game build workflow."],
-["AI-generated game assets","Concept art, textures, sprites, sound and animation workflows."],
-["AI-assisted level design","Procedural environments, maps and content generation."],
-["Intelligent NPCs","Dialogue, behaviour trees and controlled LLM interactions."],
-["Game backend","Accounts, leaderboards, saves and multiplayer basics."],
-["Game testing and optimisation","Frame rate, performance, device testing and bug fixing."],
-["Game monetisation","Free-to-play models, premium releases and ethical design."],
-["Game publishing","itch.io, web hosting, Google Play and Steam release process."]
-]},
-{title:"Testing, Debugging & Quality Engineering",time:"Weeks 60–63",topics:[
-["Testing strategy","Test pyramid, risk-based testing and coverage."],
-["Unit testing","Vitest, Jest and isolated logic testing."],
-["Integration testing","Database, service and API integration."],
-["End-to-end testing","Playwright and complete user journeys."],
-["API testing","Postman and automated API validation."],
-["Mobile testing","Device, emulator and platform testing."],
-["Performance testing","k6, load testing and bottleneck analysis."],
-["LLM evaluations","Test datasets, scoring and regression testing."],
-["Observability","Sentry, logs, metrics and traces."],
-["Accessibility testing","Automated and manual accessibility verification."],
-["AI-generated fix verification","Reproduce, fix, retest and confirm root cause."]
-]},
-{title:"Cybersecurity, Privacy & Responsible AI",time:"Weeks 64–66",topics:[
-["OWASP Top 10","Common web application security risks."],
-["Authentication security","Password storage, sessions and MFA."],
-["Access control","IDOR, privilege escalation and tenant isolation."],
-["Injection attacks","SQL injection, XSS and command injection."],
-["CSRF and SSRF","Request forgery and server-side request risks."],
-["Secrets and encryption","Key management, TLS and sensitive data handling."],
-["Dependency security","Vulnerability scanning and supply-chain risks."],
-["AI security","Prompt injection, data leakage and RAG poisoning."],
-["Agent permissions","Tool allowlists, sandboxing and approval controls."],
-["Privacy compliance","Data minimisation, retention and consent."]
-]},
-{title:"Cloud, DevOps & Deployment",time:"Weeks 67–71",topics:[
-["Cloud fundamentals","Compute, storage, networking and managed services."],
-["AWS","Core services, IAM and deployment architecture."],
-["Microsoft Azure","App hosting, identity and AI services."],
-["Google Cloud","Cloud Run, storage and managed databases."],
-["Docker","Images, containers and development environments."],
-["Kubernetes fundamentals","Pods, deployments, services and scaling concepts."],
-["CI/CD","GitHub Actions and automated release pipelines."],
-["DNS and TLS","Domains, records, HTTPS and certificates."],
-["Infrastructure as code","Terraform fundamentals."],
-["Monitoring and logging","Production visibility and alerts."],
-["Rollback and recovery","Release rollback, backups and disaster recovery."]
-]},
-{title:"System Design & Senior Engineering Architecture",time:"Weeks 72–75",topics:[
-["Architecture trade-offs","Monolith, modular monolith and microservices."],
-["System design","Requirements, components and data flows."],
-["Scalability","Horizontal and vertical scaling."],
-["Caching","Cache strategies, invalidation and consistency."],
-["Distributed systems","Failure modes, latency and network partitions."],
-["Event-driven systems","Queues, streams and asynchronous architecture."],
-["Database scaling","Replication, partitioning and sharding concepts."],
-["Reliability patterns","Circuit breakers, retries and idempotency."],
-["Multi-region architecture","Availability, latency and disaster recovery."],
-["Architecture documentation","ADRs, diagrams and technical proposals."],
-["Capacity testing","Measure real performance rather than claiming scale."]
-]},
-{title:"Engineering Leadership & AI Team Management",time:"Weeks 76–77",topics:[
-["Code reviews","Review correctness, maintainability and security."],
-["Pull requests","Small changes, clear descriptions and review workflow."],
-["Architecture reviews","Evaluate system-level technical decisions."],
-["Planning and estimation","Break work into deliverable milestones."],
-["AI agent delegation","Assign bounded tasks and verify their output."],
-["Technical communication","Explain decisions to technical and nontechnical people."],
-["Incident response","Triage, root-cause analysis and postmortems."],
-["Technical debt","Prioritise refactoring and maintenance."],
-["Mentoring and collaboration","Review work, share context and improve team delivery."]
-]},
-{title:"Portfolio, Certifications & International Hiring",time:"Weeks 78–80+",topics:[
-["Professional GitHub","Repositories, READMEs, issues and contribution history."],
-["Architecture case studies","Document real engineering decisions."],
-["Technical demonstrations","Record product walkthroughs and release demos."],
-["Professional portfolio","Showcase launched products and measurable outcomes."],
-["GitHub Foundations","Prepare for the official certification."],
-["Google Cloud Digital Leader","Understand cloud and business use cases."],
-["Google Associate Cloud Engineer","Practical deployment and cloud operations."],
-["Microsoft AI-200","Azure AI application and agent development credential."],
-["Advanced cloud certification","Consider professional-level certification after experience."],
-["Technical interviews","System design, debugging and architecture discussions."],
-["International CV and applications","Present credible evidence and role-specific applications."]
-]}
-];
+const KEY="salar_adsense_agency_v1";
+const stages=["Research","Planning","Development","SEO","Content","Launch","AdSense","Growth","Completed"];
 
-const launchSteps = [
-"Define target user and problem",
-"Write PRD and acceptance criteria",
-"Complete core MVP features",
-"Review AI-generated architecture and code",
-"Implement authentication and permissions where needed",
-"Test main user journeys and edge cases",
-"Complete security and privacy review",
-"Optimise performance and accessibility",
-"Deploy production version",
-"Connect domain and configure HTTPS",
-"Prepare README, documentation and setup guide",
-"Create screenshots and demo video",
-"Publish release notes and changelog",
-"Collect feedback from real users",
-"Fix issues and ship a follow-up release",
-"Record metrics, outcomes and lessons learned"
-];
+const SEO_GROUPS={
+"Technical SEO":[
+"HTTPS enabled and certificate valid","WWW / non-WWW version normalized",
+"Robots.txt reviewed and configured","XML sitemap generated","XML sitemap submitted to Search Console",
+"Important URLs return HTTP 200","Broken internal links identified and fixed",
+"404 page configured","Redirects use correct status codes",
+"Canonical URLs configured correctly","No accidental noindex directives",
+"Important pages crawlable","Crawl budget issues reviewed where relevant",
+"Orphan pages identified","Duplicate URLs controlled",
+"Pagination handled appropriately","URL parameters reviewed",
+"JavaScript-rendered content tested","Mobile usability checked",
+"Core Web Vitals measured","LCP optimized","INP optimized","CLS optimized",
+"Images compressed and properly sized","Lazy loading implemented where appropriate",
+"CSS and JavaScript optimized","HTTPS mixed content resolved",
+"Structured data tested","Breadcrumb navigation configured",
+"Internal linking architecture reviewed","Site architecture is logically organized",
+"Search Console verified","Analytics configured","International targeting reviewed if applicable",
+"hreflang validated if applicable","Website security reviewed"
+],
+"On-Page SEO":[
+"Primary keyword mapped to page","Search intent identified",
+"Title tag unique and descriptive","Title tag includes natural primary keyword",
+"Meta description unique","H1 clearly describes page",
+"Heading hierarchy is logical","Primary topic covered comprehensively",
+"Secondary keywords used naturally","Related entities and concepts covered",
+"Original useful content published","Content is fact-checked",
+"Content readability reviewed","Keyword stuffing avoided",
+"URL slug descriptive and concise","Images have descriptive filenames",
+"Image alt text accurate and useful","Internal links use descriptive anchors",
+"External references are authoritative where needed",
+"Table of contents added where useful","FAQs added only when genuinely useful",
+"Breadcrumbs visible where appropriate","Page updated when information changes"
+],
+"Content Quality & E-E-A-T":[
+"Audience and user problem clearly defined","Content offers original value",
+"Experience or practical expertise demonstrated where appropriate",
+"Claims supported by reliable sources","Author identity and credentials represented accurately",
+"About information available","Contact information available",
+"Editorial standards established","Content reviewed for accuracy",
+"Copyright and image licenses respected","No deceptive or misleading claims",
+"Content is not mass-produced for rankings",
+"AI-assisted content receives meaningful human review",
+"Content duplication checked","Thin pages identified and improved",
+"Content refresh plan created","Content ownership and responsibility clear"
+],
+"Off-Page SEO":[
+"Backlink profile baseline recorded","Competitor backlink gap reviewed",
+"Relevant editorial link opportunities identified","Digital PR opportunities identified",
+"Broken link opportunities reviewed","Brand mentions monitored",
+"Spammy link patterns reviewed","Relevant industry citations pursued",
+"Natural link-worthy assets created","Anchor text profile monitored",
+"Referral traffic reviewed","Link acquisition quality reviewed"
+],
+"Semantic & Topical SEO":[
+"Topical map created","Pillar pages identified",
+"Supporting clusters planned","Search intent mapped across clusters",
+"Keyword cannibalization checked","Entity relationships understood",
+"Related questions researched","Topic coverage gaps identified",
+"Internal links connect relevant clusters",
+"Topical depth reviewed","Content silos logically structured"
+],
+"International & Advanced SEO":[
+"Target countries identified","Country-specific keyword research completed",
+"Language strategy documented","hreflang implemented where applicable",
+"Currency and regional content reviewed where relevant",
+"Duplicate regional pages controlled","International URL structure planned",
+"Programmatic SEO pages have unique value",
+"Template duplication risks reviewed","Faceted navigation controlled",
+"Filter URLs handled correctly","Infinite scroll crawlability considered",
+"Log file analysis performed where needed","Site migration plan documented if applicable",
+"Redirect map prepared for migrations","SEO regression testing completed"
+],
+"Monitoring & Maintenance":[
+"Search Console coverage monitored","Impressions monitored",
+"Clicks monitored","CTR monitored","Average position monitored",
+"Organic landing pages reviewed","Traffic drops investigated",
+"Ranking losses investigated","Indexing changes reviewed",
+"Broken links checked periodically","Content decay reviewed",
+"Competitor changes monitored","Monthly SEO report prepared",
+"SEO experiments documented","Backup and recovery tested"
+]
+};
 
-const projects = [
-{name:"Enterprise SaaS Platform",type:"FULL-STACK SAAS",desc:"Multi-tenant SaaS with user accounts, roles, billing, admin dashboard, APIs and production deployment.",phase:"Full-stack + backend + cloud"},
-{name:"Cross-platform Mobile App",type:"ANDROID + IOS",desc:"A complete React Native app with authentication, offline support, notifications and store release.",phase:"Mobile engineering"},
-{name:"AI Document Intelligence",type:"AI PRODUCT",desc:"Upload, classify, extract, analyse and search documents with structured AI outputs.",phase:"LLMs + RAG"},
-{name:"Autonomous Business Agent",type:"AI AGENT",desc:"An agent that performs approved business workflows using tools, logs and human approval gates.",phase:"Agents + automation"},
-{name:"Business Automation System",type:"AUTOMATION",desc:"Connect CRM, forms, spreadsheets and communication tools into reliable workflows.",phase:"Integrations"},
-{name:"E-commerce Platform",type:"COMMERCE",desc:"Product management, customer journeys, checkout, order management and admin operations.",phase:"Full-stack + databases"},
-{name:"Enterprise Knowledge Assistant",type:"RAG SYSTEM",desc:"A secure knowledge assistant with document ingestion, retrieval, citations and tenant isolation.",phase:"RAG + AI"},
-{name:"Cloud-native SaaS",type:"CLOUD ENGINEERING",desc:"A monitored, containerised application with CI/CD, infrastructure configuration and recovery.",phase:"Cloud + system design"},
-{name:"AI Browser Game",type:"GAME DEVELOPMENT",desc:"A polished browser game with AI-generated visual assets, gameplay systems and public release.",phase:"Phaser / Three.js"},
-{name:"2D or 3D Published Game",type:"GAME RELEASE",desc:"A complete Godot or Unity game with levels, audio, testing, store page and public launch.",phase:"Godot / Unity"}
-];
+const PRODUCT_GROUPS={
+"Keyword & Intent Research":["Primary keyword selected","Secondary keywords identified","Long-tail variations researched","Search intent verified","Keyword-to-page mapping completed","Keyword cannibalization checked","SERP competitors analyzed","Content gap identified"],
+"Page Metadata & Structure":["Unique SEO title written","Meta description written","Clean URL slug created","One descriptive H1","Logical H2 and H3 structure","Canonical URL set","Robots meta directive checked","Breadcrumbs configured"],
+"Content & Experience":["Original useful page content","User problem explained","Features or benefits described","Practical instructions included where relevant","Relevant examples included","FAQs based on real user questions","Trust and accuracy reviewed","Content uniqueness checked","No keyword stuffing","Clear calls to action"],
+"Images & Media":["Original or properly licensed images","Descriptive image filename","Alt text added","Image compressed","Modern image format used","Image dimensions specified","Lazy loading where appropriate"],
+"Links & Schema":["Relevant internal links","Descriptive anchor text","Useful external references","Appropriate schema type selected","JSON-LD validated","Required schema properties completed","No misleading structured data"],
+"Technical & Performance":["Mobile responsive","HTTPS works","Page returns correct status","Core Web Vitals checked","Page loads efficiently","No broken resources","Indexability checked","Canonical destination correct","Page added to sitemap if indexable","Search Console inspection performed"],
+"Monitoring & Improvement":["Page published","Initial impressions monitored","CTR reviewed","Ranking tracked","User engagement reviewed","Content improvement opportunities logged","Refresh date scheduled"]
+};
 
-const STORAGE_KEY="salar_ai_engineering_academy_v1";
-let saved={};
-try{saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")}catch(e){saved={}}
-if(!saved.topics)saved.topics={};
-if(!saved.launch)saved.launch={};
+const ADS_GROUPS={
+"Website Identity & Trust":["Original website branding and identity","Clear About page","Working Contact page","Privacy Policy published","Terms and Conditions where appropriate","Clear navigation and footer","Website ownership information consistent","Functional pages and links"],
+"Content & User Value":["Substantial original content","Content provides genuine visitor value","Main content is accessible","No copied or scraped content","No misleading content","Images and media rights reviewed","No placeholder or unfinished pages","Content quality manually audited"],
+"Policy & Compliance":["Google Publisher Policies reviewed","AdSense programme policies reviewed","Copyright compliance checked","Restricted content reviewed","Deceptive navigation avoided","Traffic sources reviewed","No incentivized invalid clicks","No artificial traffic generation","Privacy and consent obligations reviewed for target regions"],
+"Technical Readiness":["Domain and website accessible","HTTPS enabled","Mobile usability tested","Pages load correctly","Navigation tested","No broken links on important pages","Website ownership verified","Site meets current application requirements"],
+"Final Application":["Final content audit completed","Final policy audit completed","Application details accurate","AdSense account setup reviewed","Application submitted","Review status recorded","Feedback or rejection reasons documented","Required corrections completed"]
+};
 
-const $=id=>document.getElementById(id);
-const topicKey=(p,t)=>p+"_"+t;
-function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(saved));updateStats()}
-function topicState(p,t){return saved.topics[topicKey(p,t)]||{studied:false,learned:false}}
-function allTopics(){return phases.reduce((a,p)=>a+p.topics.length,0)}
-function counts(){
- let studied=0,learned=0;
- phases.forEach((p,i)=>p.topics.forEach((t,j)=>{
- const s=topicState(i,j);if(s.studied)studied++;if(s.learned)learned++;
- }));
- return {studied,learned,total:allTopics()};
+const LAUNCH_GROUPS={
+"Domain & Infrastructure":["Domain purchased and ownership verified","DNS records configured","HTTPS certificate active","Preferred domain version selected","Hosting deployed","Server response checked","Backup process prepared"],
+"Site Deployment":["Homepage deployed","All important routes deployed","Navigation verified","Forms tested","Mobile responsive tested","Browser compatibility tested","404 and redirects tested","No placeholder content remains"],
+"Analytics & Search":["Google Search Console property verified","XML sitemap submitted","Robots.txt verified","Analytics configured","Important landing pages inspected","Indexability checked","Internal links tested","Initial baseline recorded"],
+"Final Launch Audit":["Technical SEO audit completed","Performance audit completed","Security audit completed","Content audit completed","Copyright audit completed","Backup exported","Launch date recorded"]
+};
+
+const DEFAULT={
+sites:[],research:[],competitors:[],products:[],content:[],traffic:[],revenue:[],experiments:[],activity:[],seo:{},ads:{},launch:{},failed:[],archived:[]
+};
+let db=load();
+
+function load(){
+ try{return {...DEFAULT,...JSON.parse(localStorage.getItem(KEY)||"{}")}}
+ catch(e){return structuredClone(DEFAULT)}
 }
-function updateStats(){
- const c=counts(),sp=Math.round(c.studied/c.total*100),lp=Math.round(c.learned/c.total*100);
- const totalChecks=c.total*2,done=c.studied+c.learned;
- const overall=Math.round(done/totalChecks*100);
- $("studiedCount").textContent=c.studied;
- $("learnedCount").textContent=c.learned;
- $("studiedPercent").textContent=sp+"%";
- $("learnedPercent").textContent=lp+"%";
- $("studiedBar").style.width=sp+"%";
- $("learnedBar").style.width=lp+"%";
- $("heroPercent").textContent=overall+"%";
- $("heroBar").style.width=overall+"%";
- $("progressLabel").textContent=overall===100?"CURRICULUM COMPLETE":overall>0?"IN PROGRESS":"STARTING";
- $("phaseCount").textContent=phases.length;
- $("topicTotal").textContent=c.total+" topics";
- $("projectCount").textContent=projects.length;
- renderNext();
- renderLaunchSummary();
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(db));
+ refresh();
 }
-function renderPhases(filter=""){
- const root=$("phaseList");root.innerHTML="";
- let shown=0;
- phases.forEach((p,i)=>{
- const matching=p.topics.map((t,j)=>({t,j})).filter(x=>
- (p.title+" "+x.t.join(" ")).toLowerCase().includes(filter.toLowerCase()));
- if(!matching.length)return;
- shown++;
- const done=matching.filter(x=>topicState(i,x.j).learned).length;
- const phase=document.createElement("div");phase.className="phase";
- phase.innerHTML=`<div class="phase-head">
- <div class="phase-number">${String(i+1).padStart(2,"0")}</div>
- <div class="phase-info"><strong>${p.title}</strong><small>${p.time} · ${p.topics.length} topics</small></div>
- <div class="phase-progress">${done}/${matching.length} learned</div><span class="muted">⌄</span>
- </div><div class="phase-content">
- <div class="topic-labels"><div>SKILL / TOPIC</div><div style="text-align:center">STUDIED</div><div style="text-align:center">LEARNED</div></div>
- <div class="topics"></div></div>`;
- phase.querySelector(".phase-head").addEventListener("click",()=>phase.classList.toggle("open"));
- const list=phase.querySelector(".topics");
- matching.forEach(({t,j})=>{
- const s=topicState(i,j),row=document.createElement("div");row.className="topic";
- row.innerHTML=`<div><div class="topic-name">${t[0]}</div><div class="topic-desc">${t[1]}</div></div>
- <label class="check-col"><input type="checkbox" ${s.studied?"checked":""} aria-label="Studied ${t[0]}"></label>
- <label class="check-col"><input type="checkbox" ${s.learned?"checked":""} aria-label="Learned ${t[0]}"></label>`;
- const inputs=row.querySelectorAll("input");
- inputs[0].addEventListener("change",e=>{const v=topicState(i,j);v.studied=e.target.checked;saved.topics[topicKey(i,j)]=v;persist();renderPhases($("search").value)});
- inputs[1].addEventListener("change",e=>{const v=topicState(i,j);v.learned=e.target.checked;saved.topics[topicKey(i,j)]=v;persist();renderPhases($("search").value)});
- list.appendChild(row);
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function money(n){return Number(n||0).toLocaleString("en-US",{maximumFractionDigits:2})}
+function log(message){
+ db.activity.unshift({message,date:new Date().toLocaleString()});
+ db.activity=db.activity.slice(0,30);
+}
+function closeModal(){document.getElementById("modal-bg").classList.remove("show")}
+function modal(title,html,callback){
+ document.getElementById("modal-title").textContent=title;
+ document.getElementById("modal-body").innerHTML=html;
+ document.getElementById("modal-save").onclick=()=>{if(callback())closeModal()};
+ document.getElementById("modal-bg").classList.add("show");
+}
+function field(label,name,placeholder="",type="text"){
+ return `<div class="field"><label>${label}</label><input name="${name}" type="${type}" placeholder="${placeholder}"></div>`;
+}
+function area(label,name,placeholder=""){
+ return `<div class="field full"><label>${label}</label><textarea name="${name}" placeholder="${placeholder}"></textarea></div>`;
+}
+function selectField(label,name,options){
+ return `<div class="field"><label>${label}</label><select name="${name}">${options.map(x=>`<option>${esc(x)}</option>`).join("")}</select></div>`;
+}
+function val(name){return document.querySelector(`#modal-body [name="${name}"]`)?.value.trim()||""}
+function need(name,label){if(!val(name)){alert(label+" is required.");return false}return true}
+
+function showPage(name){
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+ document.getElementById("page-"+name).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===name));
+ document.getElementById("crumb").textContent=name.replace(/-/g," ").toUpperCase();
+ document.getElementById("sidebar").classList.remove("open");
+ renderAll();
+}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+
+function projectOptions(selected=""){
+ return db.sites.filter(s=>s.status!=="Failed").map(s=>`<option value="${s.id}" ${s.id===selected?"selected":""}>${esc(s.name)}</option>`).join("");
+}
+function siteSelect(id,selected){
+ const el=document.getElementById(id);
+ if(!el)return;
+ el.innerHTML=projectOptions(selected);
+}
+function openProjectModal(){
+ modal("Create New Website",`<div class="form-grid">
+ ${field("Website / Project Name","name","Example: Tool Website")}
+ ${field("Domain (optional)","domain","example.com")}
+ ${field("Niche","niche","Example: Productivity Tools")}
+ ${selectField("Current stage","status",stages)}
+ ${field("Target country","country","USA, UK, Canada...")}
+ ${field("Estimated budget (PKR)","budget","0","number")}
+ ${area("Project objective","objective","What are you building and why?")}
+ </div>`,()=>{
+ if(!need("name","Project name"))return false;
+ const s={id:id(),name:val("name"),domain:val("domain"),niche:val("niche"),status:val("status"),country:val("country"),budget:+val("budget"),objective:val("objective"),created:new Date().toISOString(),pages:[],views:0,adStatus:"Not Applied"};
+ db.sites.push(s);log("Created website: "+s.name);save();return true;
  });
- if(filter)phase.classList.add("open");
- root.appendChild(phase);
+}
+function updateStage(sid,stage){
+ const s=db.sites.find(x=>x.id===sid);if(!s)return;
+ s.status=stage;log(s.name+" moved to "+stage);save();
+}
+function deleteSite(sid){
+ if(!confirm("Delete this website and its associated records? Export a backup first if needed."))return;
+ db.sites=db.sites.filter(s=>s.id!==sid);
+ db.products=db.products.filter(x=>x.site!==sid);
+ db.content=db.content.filter(x=>x.site!==sid);
+ db.traffic=db.traffic.filter(x=>x.site!==sid);
+ db.revenue=db.revenue.filter(x=>x.site!==sid);
+ delete db.seo[sid];delete db.ads[sid];delete db.launch[sid];
+ save();
+}
+function markFailed(sid){
+ const s=db.sites.find(x=>x.id===sid);if(!s)return;
+ modal("Mark Project as Failed",`<div class="danger-box" style="margin-bottom:14px">You are marking <strong>${esc(s.name)}</strong> as a failed project. Its historical records will be retained.</div>
+ <div class="field"><label>Failure reason (required)</label><select name="reason">
+ <option value="">Select reason</option>
+ ${["Niche not profitable","Insufficient search demand","Competition too high","Keyword difficulty too high","Poor RPM potential","AdSense rejection","Technical limitations","SEO performance failure","Development issues","Budget constraints","Policy or copyright issue","Other"].map(x=>`<option>${x}</option>`).join("")}
+ </select></div>
+ <div class="field"><label>Failure stage</label><select name="stage">${stages.map(x=>`<option ${s.status===x?"selected":""}>${x}</option>`).join("")}</select></div>
+ ${area("Detailed reasoning (required)","details","Explain what happened and why the project failed...")}
+ ${field("Financial loss (PKR, optional)","loss","0","number")}
+ ${area("Lessons learned","lessons","What should be done differently next time?")}
+ `,()=>{
+ if(!need("reason","Failure reason")||!need("details","Detailed reasoning"))return false;
+ const record={site:s,reason:val("reason"),stage:val("stage"),details:val("details"),loss:+val("loss"),lessons:val("lessons"),date:new Date().toISOString()};
+ db.failed.unshift(record);db.sites=db.sites.filter(x=>x.id!==sid);
+ log("Marked "+s.name+" as failed: "+record.reason);save();return true;
  });
- if(!shown)root.innerHTML='<div class="empty">No matching topics found.</div>';
 }
-function renderNext(){
- let found=null;
- phases.some((p,i)=>p.topics.some((t,j)=>{
- if(!topicState(i,j).learned){found={p,i,t,j};return true}return false
- }));
- $("nextPhase").innerHTML=found?
- `<div class="project-meta">YOUR NEXT LEARNING TARGET</div><h3 style="margin-top:9px">${found.p.title}</h3>
- <p><b>${found.t[0]}</b><br>${found.t[1]}</p>
- <button class="btn primary" onclick="goToPhase(${found.i})">Open this phase</button>`:
- `<h3>All topics marked learned.</h3><p>Now review your projects, launch evidence and practical skills.</p>`;
+function restoreFailed(i){
+ const f=db.failed[i];if(!f)return;
+ if(!confirm("Restore this project to active websites?"))return;
+ f.site.status=f.stage||"Research";db.sites.push(f.site);
+ db.failed.splice(i,1);log("Restored project "+f.site.name);save();
 }
-function goToPhase(i){
- showPage("curriculum");const cards=document.querySelectorAll(".phase");
- if(cards[i]){cards[i].classList.add("open");cards[i].scrollIntoView({behavior:"smooth",block:"start"})}
+function archiveFailed(i){
+ const f=db.failed[i];if(!f)return;
+ if(!confirm("Move this failure record to archive?"))return;
+ db.archived.push(f);db.failed.splice(i,1);save();
 }
-function getLaunch(i){return saved.launch[i]||[]}
-function projectProgress(i){return getLaunch(i).filter(Boolean).length}
-function renderProjects(){
- $("projectGrid").innerHTML=projects.map((p,i)=>{
- const n=projectProgress(i),pct=Math.round(n/launchSteps.length*100);
- return `<div class="project-card">
- <div class="project-meta">${p.type}</div><h3>${p.name}</h3><p>${p.desc}</p>
- <div class="muted" style="font-size:9px">${p.phase}</div>
- <div class="progress-track"><div class="progress-fill teal" style="width:${pct}%"></div></div>
- <div style="font-size:10px;color:var(--muted)">${n}/${launchSteps.length} launch milestones · ${pct}%</div>
- <button class="btn" onclick="openLaunch(${i})">Manage launch checklist →</button>
- </div>`;
- }).join("");
+function renderWebsites(){
+ const search=(document.getElementById("website-search")?.value||"").toLowerCase();
+ const filter=document.getElementById("website-filter")?.value||"all";
+ const arr=db.sites.filter(s=>(s.name+" "+s.niche+" "+s.domain).toLowerCase().includes(search)&&(filter==="all"||s.status===filter));
+ document.getElementById("website-list").innerHTML=arr.length?arr.map(s=>`
+ <div class="project"><div class="project-top"><div><h4>${esc(s.name)}</h4><div class="project-meta">${esc(s.domain||"No domain")} · ${esc(s.niche||"No niche")}</div></div><span class="badge purple">${esc(s.status)}</span></div>
+ <div class="progress"><span style="width:${stageProgress(s.status)}%"></span></div>
+ <div class="project-meta" style="margin-top:7px">${stageProgress(s.status)}% lifecycle progress · ${esc(s.country||"Country not set")}</div>
+ <div class="project-actions"><button class="mini-btn" onclick="editProject('${s.id}')">Edit</button><button class="mini-btn" onclick="showPage('seo');setTimeout(()=>document.getElementById('seo-site').value='${s.id}',0)">SEO checklist</button><button class="mini-btn" onclick="markFailed('${s.id}')">Mark as failed</button><button class="mini-btn" onclick="deleteSite('${s.id}')">Delete</button><select style="width:auto;padding:6px;font-size:10px" onchange="updateStage('${s.id}',this.value)">${stages.map(x=>`<option ${s.status===x?"selected":""}>${x}</option>`).join("")}</select></div></div>`).join(""):`<div class="empty"><strong>No websites found</strong>Create a website to start tracking progress.</div>`;
+}
+function stageProgress(stage){return Math.round((stages.indexOf(stage)+1)/stages.length*100)}
+function editProject(sid){
+ const s=db.sites.find(x=>x.id===sid);if(!s)return;
+ modal("Edit Website",`<div class="form-grid">
+ ${field("Website name","name")}${field("Domain","domain")}
+ ${field("Niche","niche")}${selectField("Stage","status",stages)}
+ ${field("Target country","country")}${field("Budget (PKR)","budget")}
+ ${area("Objective","objective")}
+ </div>`,()=>{
+ if(!need("name","Name"))return false;
+ Object.assign(s,{name:val("name"),domain:val("domain"),niche:val("niche"),status:val("status"),country:val("country"),budget:+val("budget"),objective:val("objective")});save();return true;
+ });
+ const m=document.getElementById("modal-body");
+ ["name","domain","niche","status","country","budget","objective"].forEach(k=>{const e=m.querySelector(`[name="${k}"]`);if(e)e.value=s[k]??""});
+}
+function renderLifecycle(){
+ document.getElementById("lifecycle-list").innerHTML=db.sites.length?db.sites.map(s=>`
+ <div class="project"><div class="project-top"><h4>${esc(s.name)}</h4><span class="badge purple">${esc(s.status)}</span></div>
+ <div class="progress" style="margin:12px 0"><span style="width:${stageProgress(s.status)}%"></span></div>
+ <div class="grid four">${stages.map((x,i)=>`<div class="small" style="color:${i<=stages.indexOf(s.status)?"var(--green)":"var(--muted)"}">${i<=stages.indexOf(s.status)?"✓":"○"} ${x}</div>`).join("")}</div></div>`).join(""):`<div class="empty">Create a website to see its lifecycle.</div>`;
+}
+
+// Generic checklist engine
+function taskStatus(sid,group,index,type){
+ const root=type==="seo"?db.seo:type==="ads"?db.ads:db.launch;
+ return root[sid]?.[group]?.[index]||"pending";
+}
+function setTask(sid,group,index,type,status){
+ const root=type==="seo"?db.seo:type==="ads"?db.ads:db.launch;
+ root[sid]??={};root[sid][group]??={};root[sid][group][index]=status;save();
+}
+function checklistHTML(groups,sid,type,filter="all"){
+ let total=0,done=0;
+ let html="";
+ Object.entries(groups).forEach(([group,tasks])=>{
+ const entries=tasks.map((task,i)=>({task,i,status:taskStatus(sid,group,i,type)}));
+ total+=entries.length;done+=entries.filter(x=>x.status==="done").length;
+ const visible=entries.filter(x=>filter==="all"||(filter==="pending"&&x.status==="pending")||(filter==="done"&&x.status==="done")||(filter==="failed"&&x.status==="failed")||(filter==="na"&&x.status==="na"));
+ if(!visible.length)return;
+ html+=`<div class="check-group"><div class="check-head"><strong>${esc(group)}</strong><span class="badge">${entries.filter(x=>x.status==="done").length}/${entries.length} verified</span></div><div class="check-items">`;
+ visible.forEach(({task,i,status})=>{
+ html+=`<div class="check-item"><input type="checkbox" ${status==="done"?"checked":""} onchange="setTask('${sid}',${JSON.stringify(group)},${i},'${type}',this.checked?'done':'pending')"><span>${esc(task)}<small>${status==="done"?"Verified":status==="failed"?"Failed validation":status==="na"?"Not applicable":"Pending"}</small></span>
+ <select style="width:125px;padding:6px;font-size:9px" onchange="setTask('${sid}',${JSON.stringify(group)},${i},'${type}',this.value)"><option value="pending" ${status==="pending"?"selected":""}>Pending</option><option value="done" ${status==="done"?"selected":""}>Verified</option><option value="failed" ${status==="failed"?"selected":""}>Failed</option><option value="na" ${status==="na"?"selected":""}>N/A</option></select></div>`;
+ });
+ html+="</div></div>";
+ });
+ return {html,total,done};
+}
+function renderSEO(){
+ const sid=document.getElementById("seo-site").value;
+ if(!sid){document.getElementById("seo-groups").innerHTML='<div class="empty">Create a website first.</div>';return}
+ const r=checklistHTML(SEO_GROUPS,sid,"seo",document.getElementById("seo-filter").value);
+ const pct=r.total?Math.round(r.done/r.total*100):0;
+ document.getElementById("seo-total").textContent=pct+"%";
+ document.getElementById("seo-bar").style.width=pct+"%";
+ document.getElementById("seo-groups").innerHTML=r.html;
 }
 function renderLaunch(){
- $("launchGrid").innerHTML=projects.map((p,i)=>{
- const done=getLaunch(i),n=done.filter(Boolean).length,pct=Math.round(n/launchSteps.length*100);
- return `<div class="panel">
- <div style="display:flex;justify-content:space-between;gap:12px;align-items:center">
- <div><div class="project-meta">${p.type}</div><h3 style="margin-top:6px">${p.name}</h3></div>
- <strong style="font-size:20px">${pct}%</strong>
- </div>
- <div class="progress-track"><div class="progress-fill teal" style="width:${pct}%"></div></div>
- <div class="launch-list">${launchSteps.map((s,j)=>`
- <label class="launch-item"><input type="checkbox" ${done[j]?"checked":""} onchange="toggleLaunch(${i},${j},this.checked)">
- <span>${s}</span></label>`).join("")}</div>
- </div>`;
- }).join("");
+ const sid=document.getElementById("launch-site").value;
+ if(!sid){document.getElementById("launch-groups").innerHTML='<div class="empty">Create a website first.</div>';return}
+ document.getElementById("launch-groups").innerHTML=checklistHTML(LAUNCH_GROUPS,sid,"launch").html;
 }
-function toggleLaunch(i,j,v){
- const a=getLaunch(i);a[j]=v;saved.launch[i]=a;persist();renderProjects();renderLaunch();
+function renderAdSense(){
+ const sid=document.getElementById("adsense-site").value;
+ if(!sid){document.getElementById("adsense-groups").innerHTML='<div class="empty">Create a website first.</div>';return}
+ document.getElementById("adsense-groups").innerHTML=checklistHTML(ADS_GROUPS,sid,"ads").html;
+ const a=db.ads[sid]?.meta||{};
+ document.getElementById("ads-status").value=a.status||"Not Applied";
+ document.getElementById("ads-date").value=a.date||"";
+ document.getElementById("ads-notes").value=a.notes||"";
 }
-function openLaunch(i){showPage("launch");setTimeout(()=>{
- const cards=$("launchGrid").children;if(cards[i])cards[i].scrollIntoView({behavior:"smooth",block:"start"});
-},50)}
-function renderLaunchSummary(){
- const total=projects.length*launchSteps.length;
- const done=projects.reduce((a,p,i)=>a+projectProgress(i),0);
- $("launchSummary").innerHTML=`<div style="display:flex;justify-content:space-between;font-size:11px"><strong>Overall launch milestones</strong><b>${done}/${total}</b></div>
- <div class="progress-track"><div class="progress-fill teal" style="width:${Math.round(done/total*100)}%"></div></div>
- <p>${projects.filter((p,i)=>projectProgress(i)===launchSteps.length).length} of ${projects.length} projects have every launch milestone marked complete.</p>
- <button class="btn" onclick="showPage('launch')">Open launch tracker →</button>`;
+function saveAdStatus(){
+ const sid=document.getElementById("adsense-site").value;if(!sid)return;
+ db.ads[sid]??={};db.ads[sid].meta={
+ status:document.getElementById("ads-status").value,
+ date:document.getElementById("ads-date").value,
+ notes:document.getElementById("ads-notes").value
+ };save();
 }
-const pageInfo={
- overview:["Welcome to your academy.","A structured path from AI-assisted building to production engineering."],
- curriculum:["Your complete curriculum.","Study the concepts, build the skills and verify what you have learned."],
- projects:["Your product laboratory.","Real products, real releases and real engineering evidence."],
- launch:["Launch every serious project.","Track the journey from idea to a public, tested release."],
- rules:["The academy standard.","A practical system for learning, building and becoming an engineer."]
-};
-function showPage(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
- document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
- $("pageTitle").textContent=pageInfo[id][0];$("pageSubtitle").textContent=pageInfo[id][1];
- if(id==="curriculum")renderPhases($("search").value);
- if(id==="projects")renderProjects();
- if(id==="launch")renderLaunch();
+
+// Research
+function openResearchModal(){
+ modal("Add Niche Research",`<div class="form-grid">
+ ${field("Niche name","name","Example: Image tools")}
+ ${field("Primary keyword","keyword","Keyword")}
+ ${field("Estimated monthly searches","volume","0","number")}
+ ${field("Estimated CPC (USD)","cpc","0","number")}
+ ${field("Estimated RPM (USD)","rpm","0","number")}
+ ${field("Competition score (1-100)","competition","50","number")}
+ ${field("Opportunity score (1-100)","score","50","number")}
+ ${selectField("Research status","status",["Investigating","Shortlisted","Validated","Rejected"])}
+ ${area("Research findings","notes","Demand, competitors, monetization, country mix...")}
+ </div>`,()=>{
+ if(!need("name","Niche name"))return false;
+ db.research.unshift({id:id(),name:val("name"),keyword:val("keyword"),volume:+val("volume"),cpc:+val("cpc"),rpm:+val("rpm"),competition:+val("competition"),score:+val("score"),status:val("status"),notes:val("notes")});save();return true;
+ });
 }
-document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
-$("search").addEventListener("input",e=>renderPhases(e.target.value));
-$("exportBtn").addEventListener("click",()=>{
- const blob=new Blob([JSON.stringify(saved,null,2)],{type:"application/json"});
+function renderResearch(){
+ document.getElementById("research-list").innerHTML=db.research.length?`<div class="table-wrap"><table><thead><tr><th>NICHE</th><th>KEYWORD</th><th>SEARCHES</th><th>CPC</th><th>RPM EST.</th><th>OPPORTUNITY</th><th>STATUS</th><th></th></tr></thead><tbody>${db.research.map((r,i)=>`<tr><td><strong>${esc(r.name)}</strong><div class="small muted">${esc(r.notes)}</div></td><td>${esc(r.keyword)}</td><td>${money(r.volume)}</td><td>$${money(r.cpc)}</td><td>$${money(r.rpm)}</td><td>${r.score}/100</td><td><span class="badge purple">${esc(r.status)}</span></td><td><button class="mini-btn" onclick="removeRecord('research',${i})">Delete</button></td></tr>`).join("")}</tbody></table></div>`:'<div class="empty">No research records yet.</div>';
+}
+// Competitors
+function openCompetitorModal(){
+ modal("Add Competitor",`<div class="form-grid">
+ ${field("Website / brand name","name","Competitor name")}
+ ${field("Website URL","url","https://example.com")}
+ ${field("Niche","niche","Niche")}
+ ${field("Estimated monthly traffic","traffic","0","number")}
+ ${field("Main country","country","USA")}
+ ${area("Architecture & page types","architecture","Homepage, categories, tools, articles...")}
+ ${area("Keyword and content gaps","gaps","What can your original website improve?")}
+ ${area("Notes","notes","")}
+ </div>`,()=>{
+ if(!need("name","Name"))return false;
+ db.competitors.unshift({id:id(),name:val("name"),url:val("url"),niche:val("niche"),traffic:+val("traffic"),country:val("country"),architecture:val("architecture"),gaps:val("gaps"),notes:val("notes")});save();return true;
+ });
+}
+function renderCompetitors(){
+ document.getElementById("competitor-list").innerHTML=db.competitors.length?db.competitors.map((c,i)=>`<div class="project"><div class="project-top"><div><h4>${esc(c.name)}</h4><div class="project-meta">${esc(c.url)} · ${esc(c.niche)}</div></div><span class="badge blue">${esc(c.country)}</span></div><div class="small muted">Estimated traffic: ${money(c.traffic)} / month</div><p class="small">${esc(c.architecture)}</p><p class="small muted">Opportunity: ${esc(c.gaps)}</p><button class="mini-btn" onclick="removeRecord('competitors',${i})">Delete</button></div>`).join(""):'<div class="empty">No competitor records yet.</div>';
+}
+
+// Products / pages
+function openProductModal(){
+ const sites=projectOptions();
+ if(!sites){alert("Create a website first.");return}
+ modal("Add Product / Page SEO Record",`<div class="form-grid">
+ <div class="field full"><label>Website</label><select name="site">${sites}</select></div>
+ ${field("Page / product name","name","Image Compressor")}
+ ${field("Page URL","url","/image-compressor/")}
+ ${field("Primary keyword","keyword","image compressor")}
+ ${selectField("Page type","type",["Tool","Product","Article","Category","Landing Page","Other"])}
+ ${field("Target country","country","USA")}
+ ${area("Page purpose / search intent","intent","What problem does this page solve?")}
+ </div>`,()=>{
+ if(!need("name","Page name"))return false;
+ db.products.unshift({id:id(),site:val("site"),name:val("name"),url:val("url"),keyword:val("keyword"),type:val("type"),country:val("country")});save();return true;
+ });
+}
+function renderProducts(){
+ const sid=document.getElementById("product-site").value;
+ const arr=db.products.filter(p=>p.site===sid);
+ document.getElementById("product-list").innerHTML=arr.length?arr.map(p=>{
+ const result=checklistHTML(PRODUCT_GROUPS,p.id,"seo");
+ const pct=result.total?Math.round(result.done/result.total*100):0;
+ return `<div class="panel"><div class="panel-head"><div><h3>${esc(p.name)}</h3><div class="small muted">${esc(p.url)} · ${esc(p.keyword)}</div></div><span class="badge purple">${pct}% verified</span></div><div class="progress"><span style="width:${pct}%"></span></div><div class="small muted" style="margin:9px 0 14px">${esc(p.type)} · ${esc(p.country)}</div><button class="mini-btn" onclick="toggleProduct('${p.id}')">Open / Close SEO checklist</button><button class="mini-btn" onclick="removeProduct('${p.id}')">Delete page</button><div id="product-check-${p.id}" style="display:none;margin-top:15px">${result.html}</div></div>`;
+ }).join(""):'<div class="empty">No pages recorded for this website. Add your first product or page.</div>';
+}
+function toggleProduct(pid){
+ const el=document.getElementById("product-check-"+pid);
+ el.style.display=el.style.display==="none"?"block":"none";
+}
+function removeProduct(pid){
+ if(!confirm("Delete this page record?"))return;
+ db.products=db.products.filter(x=>x.id!==pid);delete db.seo[pid];save();
+}
+
+// Content
+function openContentModal(){
+ if(!db.sites.length){alert("Create a website first.");return}
+ modal("Add Content Plan",`<div class="form-grid">
+ <div class="field full"><label>Website</label><select name="site">${projectOptions()}</select></div>
+ ${field("Content title","title","Article title")}
+ ${field("Primary keyword","keyword","Keyword")}
+ ${selectField("Content type","type",["Article","Pillar Page","Supporting Page","Tutorial","Tool Description","Category Page"])}
+ ${selectField("Status","status",["Idea","Research","Brief Ready","Writing","Review","Published","Needs Update"])}
+ ${field("Target publish date","date","","date")}
+ ${area("Content brief / search intent","brief","Outline, audience, purpose, sources...")}
+ </div>`,()=>{
+ if(!need("title","Title"))return false;
+ db.content.unshift({id:id(),site:val("site"),title:val("title"),keyword:val("keyword"),type:val("type"),status:val("status"),date:val("date"),brief:val("brief")});save();return true;
+ });
+}
+function renderContent(){
+ document.getElementById("content-list").innerHTML=db.content.length?`<div class="table-wrap"><table><thead><tr><th>TITLE</th><th>WEBSITE</th><th>KEYWORD</th><th>TYPE</th><th>STATUS</th><th>PUBLISH DATE</th><th></th></tr></thead><tbody>${db.content.map((c,i)=>`<tr><td><strong>${esc(c.title)}</strong><div class="small muted">${esc(c.brief)}</div></td><td>${esc(db.sites.find(s=>s.id===c.site)?.name||"Deleted website")}</td><td>${esc(c.keyword)}</td><td>${esc(c.type)}</td><td><select style="width:125px" onchange="changeContentStatus(${i},this.value)">${["Idea","Research","Brief Ready","Writing","Review","Published","Needs Update"].map(x=>`<option ${x===c.status?"selected":""}>${x}</option>`).join("")}</select></td><td>${esc(c.date)}</td><td><button class="mini-btn" onclick="removeRecord('content',${i})">Delete</button></td></tr>`).join("")}</tbody></table></div>`:'<div class="empty">No content plans yet.</div>';
+}
+function changeContentStatus(i,v){db.content[i].status=v;save()}
+
+// Traffic
+function openTrafficModal(){
+ if(!db.sites.length){alert("Create a website first.");return}
+ modal("Record Traffic Metrics",`<div class="form-grid">
+ <div class="field full"><label>Website</label><select name="site">${projectOptions()}</select></div>
+ ${field("Month","month", "", "month")}
+ ${field("Page views","views","0","number")}
+ ${field("Organic clicks","clicks","0","number")}
+ ${field("Search impressions","impressions","0","number")}
+ ${field("Average position","position","0","number")}
+ ${field("CTR (%)","ctr","0","number")}
+ </div>`,()=>{
+ if(!need("month","Month"))return false;
+ db.traffic.unshift({id:id(),site:val("site"),month:val("month"),views:+val("views"),clicks:+val("clicks"),impressions:+val("impressions"),position:+val("position"),ctr:+val("ctr")});save();return true;
+ });
+}
+function renderTraffic(){
+ const sid=document.getElementById("traffic-site").value;
+ const a=db.traffic.filter(t=>t.site===sid).sort((x,y)=>x.month.localeCompare(y.month));
+ const latest=a[a.length-1]||{};
+ document.getElementById("traffic-metrics").innerHTML=[
+ ["PAGE VIEWS",money(latest.views)],["ORGANIC CLICKS",money(latest.clicks)],["IMPRESSIONS",money(latest.impressions)],["CTR",(latest.ctr||0)+"%"],["AVG. POSITION",latest.position||"—"],["RECORDS",a.length]
+ ].map(x=>`<div class="card"><div class="stat-label">${x[0]}</div><div class="metric">${x[1]}</div></div>`).join("");
+ const max=Math.max(1,...a.map(x=>x.views));
+ document.getElementById("traffic-chart").innerHTML=a.length?`<div class="chart">${a.map(x=>`<div class="bar" style="height:${Math.max(4,x.views/max*100)}%"><span class="bar-value">${money(x.views)}</span><span class="bar-label">${esc(x.month)}</span></div>`).join("")}</div>`:'<div class="empty">Record monthly metrics to see traffic growth.</div>';
+}
+function openExperimentModal(){
+ if(!db.sites.length){alert("Create a website first.");return}
+ modal("New SEO Experiment",`<div class="form-grid">
+ <div class="field full"><label>Website</label><select name="site">${projectOptions()}</select></div>
+ ${field("Experiment name","name","Improve internal linking")}
+ ${selectField("Status","status",["Planned","Running","Completed","Failed"])}
+ ${area("Hypothesis","hypothesis","What do you expect to improve?")}
+ ${area("Results","results","Record actual outcome...")}
+ </div>`,()=>{
+ if(!need("name","Name"))return false;
+ db.experiments.unshift({id:id(),site:val("site"),name:val("name"),status:val("status"),hypothesis:val("hypothesis"),results:val("results")});save();return true;
+ });
+}
+function renderExperiments(){
+ const a=db.experiments;
+ document.getElementById("experiments-list").innerHTML=a.length?a.map((x,i)=>`<div class="project"><div class="project-top"><h4>${esc(x.name)}</h4><span class="badge">${esc(x.status)}</span></div><p class="small muted">${esc(x.hypothesis)}</p><p class="small">${esc(x.results)}</p><button class="mini-btn" onclick="removeRecord('experiments',${i})">Delete</button></div>`).join(""):'<div class="empty">No SEO experiments recorded.</div>';
+}
+
+// Revenue
+function calculate(){
+ const v=+document.getElementById("calc-views").value||0;
+ const rpm=+document.getElementById("calc-rpm").value||0;
+ const fx=+document.getElementById("calc-fx").value||0;
+ const cost=+document.getElementById("calc-cost").value||0;
+ const usd=v/1000*rpm,pkr=usd*fx;
+ document.getElementById("calc-usd").textContent="$"+money(usd);
+ document.getElementById("calc-pkr").textContent="PKR "+money(pkr);
+ document.getElementById("calc-profit").textContent="PKR "+money(pkr-cost);
+}
+function openRevenueModal(){
+ if(!db.sites.length){alert("Create a website first.");return}
+ modal("Add Actual Revenue Record",`<div class="form-grid">
+ <div class="field full"><label>Website</label><select name="site">${projectOptions()}</select></div>
+ ${field("Month","month","","month")}
+ ${field("Page views","views","0","number")}
+ ${field("Page RPM (USD)","rpm","0","number")}
+ ${field("Revenue (USD)","revenue","0","number")}
+ ${field("Expenses (PKR)","expenses","0","number")}
+ ${field("Exchange rate","fx","280","number")}
+ ${area("Notes","notes","")}
+ </div>`,()=>{
+ if(!need("month","Month"))return false;
+ db.revenue.unshift({id:id(),site:val("site"),month:val("month"),views:+val("views"),rpm:+val("rpm"),revenue:+val("revenue"),expenses:+val("expenses"),fx:+val("fx")||280,notes:val("notes")});save();return true;
+ });
+}
+function renderRevenue(){
+ document.getElementById("revenue-list").innerHTML=db.revenue.length?`<div class="table-wrap"><table><thead><tr><th>WEBSITE</th><th>MONTH</th><th>PAGE VIEWS</th><th>RPM</th><th>REVENUE</th><th>EXPENSES</th><th>NET PROFIT PKR</th><th></th></tr></thead><tbody>${db.revenue.map((r,i)=>`<tr><td>${esc(db.sites.find(s=>s.id===r.site)?.name||"Deleted website")}</td><td>${esc(r.month)}</td><td>${money(r.views)}</td><td>$${money(r.rpm)}</td><td>$${money(r.revenue)}</td><td>PKR ${money(r.expenses)}</td><td>PKR ${money(r.revenue*r.fx-r.expenses)}</td><td><button class="mini-btn" onclick="removeRecord('revenue',${i})">Delete</button></td></tr>`).join("")}</tbody></table></div>`:'<div class="empty">No actual revenue records yet.</div>';
+ const totalUSD=db.revenue.reduce((a,r)=>a+r.revenue,0);
+ const totalCost=db.revenue.reduce((a,r)=>a+r.expenses,0);
+ const totalPKR=db.revenue.reduce((a,r)=>a+r.revenue*r.fx-r.expenses,0);
+ document.getElementById("financial-summary").innerHTML=`<div class="grid three"><div><div class="stat-label">TOTAL REVENUE</div><div class="metric">$${money(totalUSD)}</div></div><div><div class="stat-label">TOTAL EXPENSES</div><div class="metric">PKR ${money(totalCost)}</div></div><div><div class="stat-label">RECORDED NET PROFIT</div><div class="metric">PKR ${money(totalPKR)}</div></div></div>`;
+}
+
+// Failed projects
+function renderFailed(){
+ document.getElementById("failed-list").innerHTML=db.failed.length?db.failed.map((f,i)=>`
+ <div class="panel"><div class="panel-head"><div><h3>${esc(f.site.name)}</h3><div class="small muted">${esc(f.site.domain||"")} · Failed ${new Date(f.date).toLocaleDateString()}</div></div><span class="badge red">FAILED</span></div>
+ <div class="grid two"><div><div class="stat-label">FAILURE REASON</div><p class="small">${esc(f.reason)}</p><div class="stat-label">FAILURE STAGE</div><p class="small">${esc(f.stage)}</p><div class="stat-label">FINANCIAL LOSS</div><p class="small">PKR ${money(f.loss)}</p></div>
+ <div><div class="stat-label">DETAILED REASONING</div><p class="small">${esc(f.details)}</p><div class="stat-label">LESSONS LEARNED</div><p class="small">${esc(f.lessons||"Not recorded")}</p></div></div>
+ <div class="project-actions"><button class="mini-btn" onclick="restoreFailed(${i})">Restore project</button><button class="mini-btn" onclick="archiveFailed(${i})">Archive record</button></div></div>`).join(""):'<div class="empty"><strong>No failed projects</strong>Failed projects will be preserved here with their reasoning and lessons.</div>';
+ if(db.archived.length)document.getElementById("failed-list").innerHTML+=`<div class="panel"><h3 class="section-title">Archived failures (${db.archived.length})</h3>${db.archived.map(f=>`<div class="project"><strong>${esc(f.site.name)}</strong><p class="small muted">${esc(f.reason)} · ${esc(f.details)}</p></div>`).join("")}</div>`;
+}
+
+// Common renderers
+function removeRecord(collection,index){
+ if(!confirm("Delete this record?"))return;
+ db[collection].splice(index,1);save();
+}
+function renderOverview(){
+ document.getElementById("stat-sites").textContent=db.sites.length;
+ document.getElementById("stat-completed").textContent=db.sites.filter(s=>s.status==="Completed").length;
+ document.getElementById("stat-views").textContent=money(db.traffic.reduce((sum,x)=>sum+x.views,0));
+ document.getElementById("stat-revenue").textContent="$"+money(db.revenue.reduce((sum,x)=>sum+x.revenue,0));
+ document.getElementById("failed-number").textContent=db.failed.length;
+ let total=0,done=0;
+ db.sites.forEach(s=>{Object.values(SEO_GROUPS).forEach((tasks,g)=>tasks.forEach((_,i)=>{total++;if(taskStatus(s.id,Object.keys(SEO_GROUPS)[g],i,"seo")==="done")done++}))});
+ const pct=total?Math.round(done/total*100):0;
+ document.getElementById("seo-progress-number").textContent=pct+"%";
+ document.getElementById("seo-progress-bar").style.width=pct+"%";
+ document.getElementById("overview-projects").innerHTML=db.sites.length?db.sites.slice(0,5).map(s=>`<div class="project"><div class="project-top"><h4>${esc(s.name)}</h4><span class="badge purple">${esc(s.status)}</span></div><div class="progress" style="margin-top:10px"><span style="width:${stageProgress(s.status)}%"></span></div></div>`).join(""):'<div class="empty">No websites yet.</div>';
+ document.getElementById("activity-list").innerHTML=db.activity.length?db.activity.slice(0,7).map(a=>`<div class="check-item"><span>${esc(a.message)}<small>${esc(a.date)}</small></span></div>`).join(""):'<div class="empty">Your activity will appear here.</div>';
+}
+function renderBackup(){updateStorage()}
+function updateStorage(){
+ const size=new Blob([JSON.stringify(db)]).size;
+ document.getElementById("storage-info").innerHTML=`<p>Websites: ${db.sites.length}</p><p>Research records: ${db.research.length}</p><p>Product pages: ${db.products.length}</p><p>Failed projects: ${db.failed.length}</p><p>Approximate data size: ${money(size/1024)} KB</p><p>Storage: Browser LocalStorage</p>`;
+}
+function exportData(){
+ const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});
  const url=URL.createObjectURL(blob),a=document.createElement("a");
- a.href=url;a.download="salar-engineering-academy-backup.json";a.click();URL.revokeObjectURL(url);
-});
-$("importBtn").addEventListener("click",()=>$("importFile").click());
-$("importFile").addEventListener("change",async e=>{
- const file=e.target.files[0];if(!file)return;
+ a.href=url;a.download="salar-adsense-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);
+}
+function importData(event){
+ const file=event.target.files[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
  try{
- const data=JSON.parse(await file.text());
- if(!data||typeof data!=="object"||!data.topics||!data.launch)throw Error("Invalid backup");
- if(!confirm("Import this backup? It will replace your current saved progress."))return;
- saved=data;persist();renderPhases($("search").value);renderProjects();renderLaunch();
- alert("Progress restored successfully.");
- }catch(err){alert("Could not import this backup. Please select a valid academy backup file.")}
- e.target.value="";
-});
-renderPhases();renderProjects();renderLaunch();updateStats();
+ const parsed=JSON.parse(reader.result);
+ if(!parsed||!Array.isArray(parsed.sites)||!Array.isArray(parsed.research))throw Error("Invalid backup structure");
+ if(!confirm("This will replace your current workspace. Continue?"))return;
+ db={...DEFAULT,...parsed};save();alert("Backup restored successfully.");
+ }catch(e){alert("Could not import this file. Please select a valid Salar AdSense JSON backup.")}
+ event.target.value="";
+ };reader.readAsText(file);
+}
+function resetData(){
+ if(!confirm("Delete ALL agency workspace data permanently?"))return;
+ if(!confirm("Final confirmation: this cannot be undone without a backup."))return;
+ localStorage.removeItem(KEY);db=structuredClone(DEFAULT);save();alert("Workspace reset.");
+}
+function refresh(){
+ renderOverview();renderWebsites();renderResearch();renderCompetitors();
+ renderLifecycle();renderSEO();renderProducts();renderContent();renderLaunch();
+ renderAdSense();renderTraffic();renderExperiments();renderRevenue();
+ renderFailed();renderBackup();
+}
+function renderAll(){
+ siteSelect("seo-site",document.getElementById("seo-site").value);
+ siteSelect("product-site",document.getElementById("product-site").value);
+ siteSelect("launch-site",document.getElementById("launch-site").value);
+ siteSelect("adsense-site",document.getElementById("adsense-site").value);
+ siteSelect("traffic-site",document.getElementById("traffic-site").value);
+ renderSEO();renderProducts();renderLaunch();renderAdSense();renderTraffic();
+}
+calculate();
+refresh();
 </script>
 </body>
 </html>
